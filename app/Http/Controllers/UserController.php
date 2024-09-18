@@ -25,16 +25,35 @@ class UserController extends Controller
         // UserModel::where('level_id', '4')->update($data); // Mengupdate data user
         
         // Menambahkan data baru
-        $data = [
-            'level_id' => 2,
-            'username' => 'manager_tiga',
-            'nama' => 'Manager 3',
-            'password' => Hash::make('12345')
-        ];
-        UserModel::create($data);
+        // $data = [
+        //     'level_id' => 2,
+        //     'username' => 'manager_tiga',
+        //     'nama' => 'Manager 3',
+        //     'password' => Hash::make('12345')
+        // ];
+        // UserModel::create($data);
 
-        // mencoba mengakses model UserModel
-        $user = UserModel::all(); // Mengambil semua data dari tabel m_user
+        // // mencoba mengakses model UserModel
+        // $user = UserModel::all(); // Mengambil semua data dari tabel m_user
+        // return view('user', ['data' => $user]);
+
+        // Untuk menampilkan 1 data dengan menggunakan 
+        // find, find()->first(), where()->first(), dan firstWhere().
+        // $user = UserModel::find(1);
+        // return view('user', ['data' => $user]);
+        
+        // $user = UserModel::find(1)->first();
+        // return view('user', ['data' => $user]);
+
+        // $user = UserModel::where('level_id', 1)->first();
+        // return view('user', ['data' => $user]);
+
+        // $user = UserModel::firstWhere('level_id', 1);
+        // return view('user', ['data' => $user]);
+
+        $user = UserModel::findOr(20, ['username', 'nama'], function() {
+            abort(404);
+        });
         return view('user', ['data' => $user]);
     }
 }
