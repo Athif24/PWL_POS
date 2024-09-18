@@ -28,3 +28,18 @@ Route::get('/kategori', [KategoriController::class, 'index']);
 
 // Route untuk UserController
 Route::get('/user', [UserController::class, 'index']);
+
+// Route Tambah User
+Route::get('/user/tambah', [UserController::class, 'tambah']);
+
+// Route Tambah Simpan
+Route::post('/user/tambah_simpan', [UserController::class, 'tambah_simpan']);
+
+// Route Ubah
+Route::get('/user/ubah/{id}', [UserController::class, 'ubah']);
+
+// Route Ubah Simpan
+Route::put('/user/ubah_simpan/{id}', [UserController::class, 'ubah_simpan']);
+
+// Route Hapus
+Route::get('/user/hapus/{id}', [UserController::class, 'hapus']);
