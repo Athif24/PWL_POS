@@ -1,249 +1,149 @@
 <?php
 
-// namespace App\Http\Controllers;
-
-// use Illuminate\Http\Request;
-// use Illuminate\Support\Facades\DB;
-
-// class LevelController extends Controller
-// {
-//     public function index() {
-//         // Untuk menambahkan data
-//         // DB::insert('insert into m_level(level_kode, level_nama, created_at) values(?, ?, ?)', ['CUS', 'Pelanggan', now()]);
-//         // return 'Insert data baru berhasil'; 
-
-//         // Mengupdate data
-//         // $row = DB::update('update m_level set level_nama = ? where level_kode = ?', ['Customer', 'CUS']);
-//         // return 'Update data berhasil. Jumlah data yang diupdate : ' . $row . ' baris';
-
-//         // Untuk menghapus data
-//         // $row = DB::delete('delete from m_level where level_kode = ?', ['CUS']);
-//         // return 'Delete data berhasil. Jumlah data yang dihapus : ' .$row. ' baris';
-
-//         // Untuk menampilkan view
-//         $data = DB::select('select * from m_level');
-//         return view('level', ['data' => $data]);
-//     }
-// }
-
-
-
 namespace App\Http\Controllers;
 
-use App\Models\UserModel;
+use App\Models\LevelModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Yajra\DataTables\DataTables;
 
-class UserController extends Controller
+class LevelController extends Controller
 {
-    // public function index()
-    // {
-        // Menambahkan data user dengan Eloquent Model
-        // $data = [
-        //     'username' => 'custmer-1',
-        //     'nama' => 'Pelanggan',
-        //     'password' => Hash::make('12345'),
-        //     'level_id' => 4
-        // ];
-        // UserModel::insert($data); // Menambahkan data ke tabel m_user
+    public function index()
+    {
+        $breadcrumb = (object)[
+            'title' => 'Daftar Level',
+            'list' => ['Home', 'Level']
+        ];
+    
+        $page = (object)[
+            'title' => 'Daftar level yang terdaftar dalam sistem'
+        ];
+    
+        $activeMenu = 'level'; //set menu yang sedang aktif
+        $level = LevelModel::all(); //ambil data level unttuk filter level
+    
+        return view('level.index',['breadcrumb'=>$breadcrumb, 'page' => $page, 'level' => $level,'activeMenu'=>$activeMenu]);
+    }
 
-        // $data = [
-        //     'nama' => 'Pelanggan Pertama',
-        //     'username' => 'customer-1'
-        // ];
-        // UserModel::where('level_id', '4')->update($data); // Mengupdate data user
-
-        //Jobsheet 4 Praktikum 1 Langkah 2
-        // $data
-        //     = [
-        //         'level_id' => 2,
-        //         'username' => 'manager_dua',
-        //         'nama' => 'Manager 2',
-        //         'password' => Hash::make('12345')
-        //     ];
-        // UserModel::create($data);
-
-        //Jobsheet 4 Praktikum 1 Langkah 4
-        // $data
-        //     = [
-        //         'level_id' => 2,
-        //         'username' => 'manajer_tiga',
-        //         'nama' => 'Manager 3',
-        //         'password' => Hash::make('12345')
-        //     ];
-        // UserModel::create($data);
-
-        // // mencoba mengakses model UserModel
-        // $user = UserModel::all(); // Mengambil semua data dari tabel m_user
-        // return view('user', ['data' => $user]);
-
-        // Jobsheet 4 Praktikum 2.1 Langkah 3
-        // $user = UserModel::find(1); // Mengambil semua data dari tabel m_user
-        // return view('user', ['data' => $user]);
-
-        // Jobsheet 4 Praktikum 2.1 Langkah 5
-        // $user = UserModel::where('level_id', 1)->first();
-        // return view('user', ['data' => $user]);
-
-        // Jobsheet 4 Praktikum 2.1 Langkah 5
-        // $user = UserModel::findor(1, ['username', 'nama'], function () {
-        //     abort(404);
-        // });
-        // return view('user', ['data' => $user]);
-
-        // Jobsheet 4 Praktikum 2.1 Langkah 10
-        // $user = UserModel::findor(20, ['username', 'nama'], function () {
-        //     abort(404);
-        // });
-        // return view('user', ['data' => $user]);
-
-        // Jobsheet 4 Praktikum 2.2 Langkah 1
-        // $user = UserModel::findOrFail(1);
-        // return view('user', ['data' => $user]);
-
-        // Jobsheet 4 Praktikum 2.2 Langkah 3
-        // $user = UserModel::where('username', 'manager9')->first0rFail();
-        // return view('user', ['data' => $user]);
-
-
-        //Jobsheet 4 Praktikum 2.3 Langkah 3
-        // Menghitung jumlah pengguna dengan level_id = 2
-        // $userCount = UserModel::where('level_id', 2)->count();
-        // return view('user', ['userCount' => $userCount]);
-
-
-        //Jobsheet 4 Praktikum 2.4 Langkah 3
-        // $user = UserModel::firstOrCreate(
-        //     [
-        //         'username' => 'manager22',
-        //         'nama' => 'Manager Dua Dua',
-        //         'password' => Hash::make('12345'),
-        //         'level_id' => 2
-        //     ],
-        // );
-        // return view('user', ['data' => $user]);
-
-        //Jobsheet 4 Praktikum 2.4 Langkah 6
-        // $user = UserModel::firstOrNew(
-        //     [
-        //         'username' => 'manager',
-        //         'nama' => 'Manager',
-        //     ],
-        // );
-        // return view('user', ['data' => $user]);
-
-        //Jobsheet 4 Praktikum 2.4 Langkah 8
-        // $user = UserModel::firstOrNew(
-        //     [
-        //         'username' => 'manager33',
-        //         'nama' => 'Manager Tiga Tiga',
-        //         'password' => Hash::make('12345'),
-        //         'level_id' => 2
-        //     ],
-        // );
-        // return view('user', ['data' => $user]);
-
-
-        //Jobsheet 4 Praktikum 2.4 Langkah 10
-        // $user = UserModel::firstOrNew(
-        //     [
-        //         'username' => 'manager33',
-        //         'nama' => 'Manager Tiga Tiga',
-        //         'password' => Hash::make('12345'),
-        //         'level_id' => 2
-        //     ],
-        // );
-        // $user ->save();
-        // return view('user', ['data' => $user]);
-
-        //Jobsheet 4 Praktikum 2.5 Langkah 1
-        // $user = UserModel::create([
-        //     'username' => 'manager55',
-        //     'nama' => 'Manager55',
-        //     'password' => Hash::make('12345'),
-        //     'level_id' => 2,
-        // ]);
-        // $user->username = 'manager56';
-        // $user->isDirty(); // true
-        // $user->isDirty('username'); // true
-        // $user->isDirty('nama'); // false
-        // $user->isDirty(['nama', 'username']); // true
-        // $user->isClean(); // false
-        // $user->isClean('username'); // false
-        // $user->isClean('nama'); // true
-        // $user->isClean(['nama', 'username']); // false
-        // $user->save();
-        // $user->isDirty(); // false
-        // $user->isClean(); // true
-        // dd($user->isDirty());
-
-        //Jobsheet 4 Praktikum 2.5 Langkah 3
-        // $user = UserModel::create([
-        //     'username' => 'manager 11',
-        //     'nama' => 'Manager11',
-        //     'password' => Hash::make('12345'),
-        //     'level_id' => 2,
-        // ]);
-        // $user->username = 'manager12';
-        // $user->save();
-        // $user->wasChanged(); // true
-        // $user->wasChanged('username'); // true
-        // $user->wasChanged(['nama', 'username']); // true
-        // $user->wasChanged('nama'); // false
-        // dd($user->wasChanged(['nama', 'username'])); // true
-
-
+    // Ambil data user dalam bentuk json untuk datables
+    public function list(Request $request)
+    {
+        $levels = LevelModel::select('level_id', 'level_kode', 'level_nama')
+            ->with('level');
         
+        //Filter data level berdasarkan level_id
+        if ($request->level_id) {
+            $levels->where('level_id', $request->level_id);
+        }
 
-    // }
-
-    //Jobsheet 4 Praktikum 2.6 Langkah 1
-    public function index() {
-        $user = UserModel::all();
-        return view ('user', ['data' => $user]);
+        return DataTables::of($levels)
+        // menambahkan kolom index / no urut (default level_nama kolom: DT_RowIndex)
+        ->addIndexColumn()
+        ->addColumn('aksi', function ($level) { // menambahkan kolom aksi
+            $btn = '<a href="'.url('/level/' . $level->level_id).'" class="btn btn-info btn-sm">Detail</a> ';
+            $btn .= '<a href="'.url('/level/' . $level->level_id. '/edit').'" class="btn btn-warning btn-sm">Edit</a> ';
+            $btn .= '<form class="d-inline-block" method="POST" action="'. url('/level/'.$level->level_id).'">'
+            . csrf_field() . method_field('DELETE') .
+            '<button type="submit" class="btn btn-danger btn-sm" onclick="return
+            confirm(\'Apakah Anda yakit menghapus data ini?\');">Hapus</button></form>';
+            
+            return $btn;
+        })
+        ->rawColumns(['aksi']) // memberitahu bahwa kolom aksi adalah html
+        ->make(true);
     }
 
-    //Jobsheet 4 Praktikum 2.6 Langkah 6
-    public function tambah() {
-        return view ('user_tambah');
+    //Menampilkan halaman form tambah level
+    public function create(){
+        $breadcrumb = (object)[
+            'title' => 'Tambah Level',
+            'list' => ['Home', 'Level', 'Tambah']
+        ];
+        $page = (object)[
+            'title' => 'Tambah level baru'
+        ];
+        $level = LevelModel::all(); //ambil data level untuk ditampilkan di form
+        $activeMenu = 'level'; //set menu yang sedang aktif
+        return view('level.create', ['breadcrumb' => $breadcrumb, 'page' => $page, 'level' => $level, 'activeMenu' => $activeMenu]);
     }
 
-    //Jobsheet 4 Praktikum 2.6 Langkah 9
-    public function tambah_simpan(Request $request) {
-        UserModel::create ([
-            'username' => $request->username,
-            'nama' => $request->nama,
-            'password' => Hash::make($request->password),
+    //Menyimpan data level baru
+    public function store(Request $request){
+        $request -> validate([
+            //level_kode harus diisi, berupa string, minimal 3 karakter, dan bernilai unik di tabel m_level kolom level_kode
+            'level_kode' => 'required|string|min:3|unique:m_level,level_kode',
+            'level_nama' => 'required|string|max:100', //level_nama harus diisi, berupa string, dan maksimal 100 karakter
+            // 'level_id' => 'required|integer'
+        ]);
+        LevelModel::create([
+            'level_kode' => $request->level_kode,
+            'level_nama' => $request -> level_nama,
             'level_id' => $request->level_id
         ]);
-        return redirect('/user');
+        return redirect('/level') -> with('success', 'Data level berhasil disimpan');
     }
 
-    //Jobsheet 4 Praktikum 2.6 Langkah 13
-    public function ubah ($id) {
-        $user = UserModel::find($id);
-        return view ('user_ubah', ['data' => $user]);
+    //Menampilkan detail level
+    public function show(String $id){
+        $level = LevelModel::with('level') -> find($id);
+        $breadcrumb = (object)[
+            'title' => 'Detail Level',
+            'list' => ['Home', 'Level', 'Detail']
+        ];
+        $page = (object)[
+            'title' => 'Detail level'
+        ];
+        $activeMenu = 'level'; //set menu yang sedang aktif
+        return view('level.show', ['breadcrumb' => $breadcrumb, 'page'=>$page, 'level'=>$level, 'activeMenu'=>$activeMenu]);
     }
 
-    //Jobsheet 4 Praktikum 2.6 Langkah 13
-    public function ubah_simpan($id, Request $request) {
-        $user = UserModel::find($id);
-        $user->username = $request->username;
-        $user->nama = $request->nama;
-        $user->password = Hash::make($request->password);
-        $user->level_id = $request->level_id;
+    //Menampilkan halaman form edit level
+    public function edit(string $id){
+        $level = LevelModel::find($id);
+        $breadcrumb = (object)[
+            'title' => 'Edit level',
+            'list' => ['Home', 'Level', 'Edit']
+        ];
+        $page = (object)[
+            'title' => 'Edit Level'
+        ];
+        $activeMenu = 'level';
+        return view ('level.edit', ['breadcrumb'=>$breadcrumb, 'page'=>$page, 'level'=>$level, 'activeMenu'=>$activeMenu]);
+    }
+
+    //Menyimpan perubahan data level
+    public function update(Request $request, string $id)
+    {
+        $request->validate([
+            'level_kode' => 'required|string|min:3|unique:m_level,level_kode,' . $id . ',level_id',
+            'level_nama' => 'required|string|max:100'
+        ]);
+        LevelModel::find($id)->update([
+            'level_kode' => $request->level_kode,
+            'level_nama' => $request->level_nama,
+            'level_id' => $request->level_id
+        ]);
+        return redirect('/level')->with('success' . "data level berhasil diubah");
+    }
+
+    // Menghapus data user
+    public function destroy(string $id)
+    {
+        // Cek apakah data user dengan ID yang dimaksud ada atau tidak
+        $check = LevelModel::find($id);
         
-        $user->save();
-        
-        return redirect('/user');
+        if (!$check) {
+            return redirect('/level')->with('error', 'Data user tidak ditemukan');
+        }
+
+        try {
+            // Hapus data user
+            levelModel::destroy($id);
+            return redirect('/level')->with('success', 'Data user berhasil dihapus');
+        } catch (\Illuminate\Database\QueryException $e) {
+            // Jika terjadi error ketika menghapus data, redirect kembali ke halaman dengan membawa pesan error
+            return redirect('/level')->with('error', 'Data user gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
+        }
     }
-
-    //Jobsheet 4 Praktikum 2.6 Langkah 19
-    public function hapus($id) {
-        $user = UserModel::find($id);
-        $user->delete();
-       
-        return redirect('/user');
-    } 
-
 }
