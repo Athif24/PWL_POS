@@ -94,7 +94,7 @@ class UserController extends Controller
         return redirect('/user')->with('success', 'Data user berhasil dsimpan');
     }
 
-    // Menampilkan halaman form tambah_ajax user
+    // Menampilkan halaman form tambah_ajax level
     public function create_ajax()
     {
         $level = LevelModel::select('level_id', 'level_nama')->get();
@@ -148,6 +148,11 @@ class UserController extends Controller
 
         $activeMenu = 'user';
         return view('user.show', ['breadcrumb' => $breadcrumb, 'page' => $page, 'user' => $user, 'activeMenu' => $activeMenu]);
+    }
+
+    public function show_ajax(string $id) {
+        $user = UserModel::find($id);
+        return view('user.show_ajax', ['user' => $user]);
     }
 
     // Menampilkan halaman form edit user
