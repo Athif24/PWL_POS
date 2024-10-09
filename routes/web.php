@@ -7,8 +7,8 @@ use App\Http\Controllers\LevelController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WelcomeController;
+use Illuminate\Auth\Middleware\Authorize;
 use Illuminate\Support\Facades\Route;
-use Monolog\Level;
 
 Route::pattern('id', '[0-9]+'); //artinya ketika ada parameter {id}, maka harus berupa angka
 
@@ -19,7 +19,7 @@ Route::get('logout', [AuthController::class, 'logout'])->middleware('auth');
 Route::middleware(['auth'])->group(function () {
     Route::get('/', [WelcomeController::class, 'index']);
 
-    Route::middleware(['authorize:ADM'], function () {
+    Route::group(['prefix'=>'level','middleware'=>['authorize:ADM']], function () {
         Route::get('/', [LevelController::class, 'index']);          // menampilkan halaman awal level
         Route::post('/list', [LevelController::class, 'list']);      // menampilkan data level dalam json untuk datables
         Route::get('/create', [LevelController::class, 'create']);   // menampilkan halaman form tambah level
@@ -37,7 +37,7 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/{id}', [LevelController::class, 'destroy']); // menghapus data level
     });
 
-    Route::group(['prefix' => 'user'], function () {
+    Route::group(['prefix' => 'user','middleware'=>['authorize:ADM']], function () {
         Route::get('/', [UserController::class, 'index']);          // menampilkan halaman awal user
         Route::post('/list', [UserController::class, 'list']);      // menampilkan data user dalam json untuk datables
         Route::get('/create', [UserController::class, 'create']);   // menampilkan halaman form tambah user
@@ -55,7 +55,7 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/{id}', [UserController::class, 'destroy']); // menghapus data user
     });
 
-    Route::group(['prefix' => 'kategori'], function () {
+    Route::group(['prefix' => 'kategori','middleware'=>['authorize:ADM,MNG,STF']], function () {
         Route::get('/', [KategoriController::class, 'index']);          // menampilkan halaman awal kategori
         Route::post('/list', [KategoriController::class, 'list']);      // menampilkan data kategori dalam json untuk datables
         Route::get('/create', [KategoriController::class, 'create']);   // menampilkan halaman form tambah kategori
@@ -73,7 +73,7 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/{id}', [KategoriController::class, 'destroy']); // menghapus data kategori
     });
 
-    Route::group(['prefix' => 'supplier'], function () {
+    Route::group(['prefix' => 'supplier','middleware'=>['authorize:AMD,MNG,STF']], function () {
         Route::get('/', [SupplierController::class, 'index']);          // menampilkan halaman awal supplier
         Route::post('/list', [SupplierController::class, 'list']);      // menampilkan data supplier dalam json untuk datables
         Route::get('/create', [SupplierController::class, 'create']);   // menampilkan halaman form tambah supplier
@@ -91,7 +91,7 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/{id}', [SupplierController::class, 'destroy']); // menghapus data supplier
     });
 
-    Route::group(['prefix' => 'barang'], function () {
+    Route::group(['prefix' => 'barang','middleware'=>['authorize:ADM,MNG,STF']], function () {
         Route::get('/', [BarangController::class, 'index']);          // menampilkan halaman awal barang
         Route::post('/list', [BarangController::class, 'list']);      // menampilkan data barang dalam json untuk datables
         Route::get('/create', [BarangController::class, 'create']);   // menampilkan halaman form tambah barang
