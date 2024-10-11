@@ -64,6 +64,9 @@
                         <!-- /.col -->
                     </div>
                 </form>
+                <div class="text-center mt-3">
+                    <p>Tidak mempunyai akun? <a href="{{ url('register') }}">Register</a></p>
+                </div>
             </div>
             <!-- /.card-body -->
         </div>
