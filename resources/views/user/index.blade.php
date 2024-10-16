@@ -1,16 +1,39 @@
 @extends('layouts.template')
 
 @section('content')
-    <div class="card card-outline card-primary">
+    <div class="card">
         <div class="card-header">
-            <h3 class="card-title">{{ $page->title }}</h3>
+            <h3 class="card-title">Daftar User</h3>
             <div class="card-tools">
+                <button onclick="modalAction('{{ url('/user/import') }}')" class="btn btn-info">
+                    Import User
+                </button>
                 <a class="btn btn-sm btn-primary mt-1" href="{{ url('user/create') }}">Tambah</a>
                 <button onclick="modalAction('{{ url('user/create_ajax') }}')" class="btn btn-sm btn-success mt-1">Tambah
                     Ajax</button>
             </div>
         </div>
         <div class="card-body">
+            <!-- Filter data -->
+            <div id="filter" class="form-horizontal filter-date p-2 border-bottom mb-2">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group form-group-sm row text-sm mb-0">
+                            <label for="filter_date" class="col-md-1 col-form-label">Filter</label>
+                            <div class="col-md-3">
+                                <select name="filter_level" class="form-control form-control-sm filter_level">
+                                    <option value="">- Semua -</option>
+                                    @foreach ($level as $l)
+                                        <option value="{{ $l->level_id }}">{{ $l->level_nama }}</option>
+                                    @endforeach
+                                </select>
+                                <small class="form-text text-muted">Level User</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             @if (session('success'))
                 <div class="alert alert-success">
                     {{ session('success') }}
@@ -21,24 +44,7 @@
                     {{ session('error') }}
                 </div>
             @endif
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group row">
-                        <label class="col-1 control-label col-form-label">Filter:</label>
-                        <div class="col-3">
-                            <select class="from-control" id="level_id" name="level_id" required>
-                                <option value=""> Semua </option>
-                                @foreach ($level as $item)
-                                    <option value="{{ $item->level_id }}">
-                                        {{ $item->level_nama }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            <small class="from-text text-muted">Level Pengguna</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
             <table class="table table-bordered table-striped table-hover table-sm" id="table_user">
                 <thead>
                     <tr>

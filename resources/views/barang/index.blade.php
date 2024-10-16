@@ -3,7 +3,7 @@
 @section('content')
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Daftar barang</h3>
+            <h3 class="card-title">Daftar Barang</h3>
             <div class="card-tools">
                 <button onclick="modalAction('{{ url('/barang/import') }}')" class="btn btn-info">
                     Import Barang
@@ -52,7 +52,7 @@
                     <tr>
                         <th>No</th>
                         <th>Kode Barang</th>
-                        <th>Kode Barang</th>
+                        <th>Nama Barang</th>
                         <th>Harga Beli</th>
                         <th>Harga Jual</th>
                         <th>Kategori</th>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\SupplierModel;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 use Illuminate\Support\Facades\Validator;
 
 class SupplierController extends Controller
@@ -172,7 +173,7 @@ class SupplierController extends Controller
     public function edit_ajax(string $id)
     {
         $supplier = SupplierModel::find($id);
-        return view ('supplier.edit_ajax',['supplier' => $supplier]);
+        return view('supplier.edit_ajax', ['supplier' => $supplier]);
     }
     public function update_ajax(Request $request, $id)
     {
@@ -182,7 +183,7 @@ class SupplierController extends Controller
                 'supplier_nama' => 'required|string|max:100',
                 'supplier_alamat' => 'required|string|max:225'
             ];
-            
+
             $validator = Validator::make($request->all(), $rules);
             if ($validator->fails()) {
                 return response()->json([
@@ -244,6 +245,62 @@ class SupplierController extends Controller
                 return response()->json([
                     'status' => false,
                     'message' => 'Data tidak ditemukan'
+                ]);
+            }
+        }
+        return redirect('/');
+    }
+
+    public function import()
+    {
+        return view('supplier.import');
+    }
+
+    public function import_ajax(Request $request)
+    {
+        if ($request->ajax() || $request->wantsJson()) {
+            $rules = [
+                // validasi file harus xls atau xlsx, max 1MB
+                'file_supplier' => ['required', 'mimes:xlsx', 'max:1024']
+            ];
+            $validator = Validator::make($request->all(), $rules);
+            if ($validator->fails()) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Validasi Gagal',
+                    'msgField' => $validator->errors()
+                ]);
+            }
+            $file = $request->file('file_supplier'); // ambil file dari request
+            $reader = IOFactory::createReader('Xlsx'); // load reader file excel
+            $reader->setReadDataOnly(true); // hanya membaca data
+            $spreadsheet = $reader->load($file->getRealPath()); // load file excel
+            $sheet = $spreadsheet->getActiveSheet(); // ambil sheet yang aktif
+            $data = $sheet->toArray(null, false, true, true); // ambil data excel
+            $insert = [];
+            if (count($data) > 1) { // jika data lebih dari 1 baris
+                foreach ($data as $baris => $value) {
+                    if ($baris > 1) { // baris ke 1 adalah header, maka lewati
+                        $insert[] = [
+                            'supplier_kode' => $value['A'],
+                            'supplier_nama' => $value['B'],
+                            'supplier_alamat' => $value['C'],
+                            'created_at' => now(),
+                        ];
+                    }
+                }
+                if (count($insert) > 0) {
+                    // insert data ke database, jika data sudah ada, maka diabaikan
+                    SupplierModel::insertOrIgnore($insert);
+                }
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Data berhasil diimport'
+                ]);
+            } else {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Tidak ada data yang diimport'
                 ]);
             }
         }
