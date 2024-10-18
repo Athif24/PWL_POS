@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\LevelController;
+use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WelcomeController;
@@ -130,5 +131,10 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/import_ajax', [BarangController::class, 'import_ajax']); // ajax import excel
         Route::get('/export_excel', [BarangController::class, 'export_excel']); // export excel
         Route::get('/export_pdf', [BarangController::class, 'export_pdf']); // export pdf
+    });
+
+    Route::group(['prefix' =>'profil'],function(){
+        Route::get('/', [ProfilController::class, 'index'])->name('profil.index');
+        Route::patch('/{id}', [ProfilController::class, 'update'])->name('profil.update');
     });
 });
