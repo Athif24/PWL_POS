@@ -351,4 +351,54 @@ class UserController extends Controller
         }
         return redirect('/');
     }
+
+    public function export_excel() {
+        // ambil data user yang akan di export
+        $user = UserModel::select('level_id', 'username', 'nama', 'password')
+        ->orderBy('level_id')
+        ->with('level')
+        ->get();
+
+        // load libary excel
+        $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet(); // ambil sheet yang aktif
+
+        $sheet->setCellValue('A1', 'No');
+        $sheet->setCellValue('B1', 'Username');
+        $sheet->setCellValue('C1', 'Nama');
+        $sheet->setCellValue('D1', 'Password');
+        $sheet->setCellValue('E1', 'Level Pengguna');
+
+        $sheet->getStyle('A1:E1')->getFont()->setBold(true); // bold header
+        $no = 1;    // nomor data dimulai dari 1
+        $baris = 2; // baris data dimulai dari 2
+        foreach ($user as $key => $value) {
+            $sheet->setCellValue('A'. $baris, $no);
+            $sheet->setCellValue('B'. $baris, $value->username);
+            $sheet->setCellValue('C'. $baris, $value->nama);
+            $sheet->setCellValue('D'. $baris, $value->password);
+            $sheet->setCellValue('E'. $baris, $value->level->level_nama); // ambil nama level
+            $baris++;
+            $no++;
+        }
+        foreach(range('A','E') as $columnID) {
+            $sheet->getColumnDimension($columnID)->setAutoSize(true); // set auto size untuk kplom
+        }
+        $sheet->setTitle('Data User'); // set title sheet
+
+        $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+        $filename = 'Data User '.date('Y-m-d H:i:s').'.xlsx';
+
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="'.$filename.'"');
+        header('Cache-Control: max-age=0');
+        header('Cache-Control: max-age=1');
+        header('Expires: Mon, 26 Jul 1997 05:00:00 GMT'); 
+        header('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT');
+        header('Cache-Control: cache, must-revalidate');
+        header('Pragma: public');
+
+        $writer->save('php://output'); // download file excel ke browser
+        exit; // keluar proses
+    }
 }
