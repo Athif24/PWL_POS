@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Yajra\DataTables\DataTables;
 
 class KategoriController extends Controller
@@ -372,5 +373,19 @@ class KategoriController extends Controller
 
         $writer->save('php://output'); // download file excel ke browser
         exit; // keluar proses
+    }
+
+    public function export_pdf() {
+        // ambil data kategori yang akan di export
+        $kategori = KategoriModel::select('kategori_kode', 'kategori_nama')
+        ->get();
+
+        // use Barryvdh\DomPDF\Facade\Pdf;
+        $pdf = Pdf::loadView('kategori.export_pdf', ['kategori' => $kategori]);
+        $pdf->setPaper('a4', 'portrait'); // set ukuran kertas dan orientasi
+        $pdf->setOption("isRemoteEnable", true); // set true jika ada gambar dari url
+        $pdf->render();
+
+        return $pdf->stream('Data kategori '.date('Y-m-d H:i:s').'pdf');
     }
 }

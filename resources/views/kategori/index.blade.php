@@ -5,13 +5,16 @@
             <h3 class="card-title">Daftar Kategori</h3>
             <div class="card-tools">
                 <button onclick="modalAction('{{ url('/kategori/import') }}')" class="btn btn-info">
-                    Import Barang
+                    Import Kategori
                 </button>
                 <a href="{{ url('/kategori/export_excel') }}" class="btn btn-primary"><i class="fa fa-fileexcel"></i>
-                    Export Barang (Excel)
+                    Export Kategori (Excel)
                 </a>
-                <button onclick="modalAction('{{ url('kategori/create_ajax') }}')" class="btn btn-sm btn-success mt-1">Tambah
-                    Ajax
+                <a href="{{ url('/kategori/export_pdf') }}" class="btn btn-warning"><i class="fa fa-filepdf"></i>
+                    Export Kategori (PDF)
+                </a>
+                <button onclick="modalAction('{{ url('/kategori/create_ajax') }}')" class="btn btn-success">
+                    Tambah Data
                 </button>
             </div>
         </div>

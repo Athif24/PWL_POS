@@ -8,10 +8,13 @@
                     Import Supplier
                 </button>
                 <a href="{{ url('/supplier/export_excel') }}" class="btn btn-primary"><i class="fa fa-fileexcel"></i>
-                    Export Barang (Excel)
+                    Export Supplier (Excel)
                 </a>
-                <button onclick="modalAction('{{ url('supplier/create_ajax') }}')" class="btn btn-sm btn-success mt-1">
-                    Tambah Ajax
+                <a href="{{ url('/supplier/export_pdf') }}" class="btn btn-warning"><i class="fa fa-filepdf"></i>
+                    Export Supplier (PDF)
+                </a>
+                <button onclick="modalAction('{{ url('/supplier/create_ajax') }}')" class="btn btn-success">
+                    Tambah Data
                 </button>
             </div>
         </div>

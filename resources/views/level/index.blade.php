@@ -9,10 +9,13 @@
                     Import Level
                 </button>
                 <a href="{{ url('/level/export_excel') }}" class="btn btn-primary"><i class="fa fa-fileexcel"></i>
-                    Export Barang (Excel)
+                    Export Level (Excel)
                 </a>
-                <button onclick="modalAction('{{ url('level/create_ajax') }}')" class="btn btn-sm btn-success mt-1">
-                    Tambah Ajax
+                <a href="{{ url('/level/export_pdf') }}" class="btn btn-warning"><i class="fa fa-filepdf"></i>
+                    Export Level (PDF)
+                </a>
+                <button onclick="modalAction('{{ url('/level/create_ajax') }}')" class="btn btn-success">
+                    Tambah Data
                 </button>
             </div>
         </div>

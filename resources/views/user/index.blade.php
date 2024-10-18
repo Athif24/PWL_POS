@@ -9,11 +9,14 @@
                     Import User
                 </button>
                 <a href="{{ url('/user/export_excel') }}" class="btn btn-primary"><i class="fa fa-fileexcel"></i>
-                    Export Barang (Excel)
+                    Export User (Excel)
                 </a>
-                <button onclick="modalAction('{{ url('user/create_ajax') }}')" class="btn btn-sm btn-success mt-1">Tambah
-                    Ajax</button>
-            </div>
+                <a href="{{ url('/user/export_pdf') }}" class="btn btn-warning"><i class="fa fa-filepdf"></i>
+                    Export User (PDF)
+                </a>
+                <button onclick="modalAction('{{ url('/user/create_ajax') }}')" class="btn btn-success">
+                    Tambah Data
+                </button>
         </div>
         <div class="card-body">
             <!-- Filter data -->
