@@ -6,16 +6,16 @@
             <h3 class="card-title">Daftar Barang</h3>
             <div class="card-tools">
                 <button onclick="modalAction('{{ url('/barang/import') }}')" class="btn btn-info">
-                    Import Barang
+                    <i class="fas fa-file-import"></i> Import
                 </button>
-                <a href="{{ url('/barang/export_excel') }}" class="btn btn-primary"><i class="fa fa-fileexcel"></i>
-                    Export Barang (Excel)
+                <a href="{{ url('/barang/export_excel') }}" class="btn btn-primary">
+                    <i class="fas fa-file-excel"></i> Export Excel
                 </a>
-                <a href="{{ url('/barang/export_pdf') }}" class="btn btn-warning"><i class="fa fa-filepdf"></i>
-                    Export Barang (PDF)
+                <a href="{{ url('/barang/export_pdf') }}" class="btn btn-warning">
+                    <i class="fas fa-file-pdf"></i> Export PDF
                 </a>
                 <button onclick="modalAction('{{ url('/barang/create_ajax') }}')" class="btn btn-success">
-                    Tambah Data
+                    <i class="fas fa-plus"></i> Tambah Barang
                 </button>
             </div>
         </div>

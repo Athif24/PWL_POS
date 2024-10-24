@@ -5,16 +5,16 @@
             <h3 class="card-title">Daftar Kategori</h3>
             <div class="card-tools">
                 <button onclick="modalAction('{{ url('/kategori/import') }}')" class="btn btn-info">
-                    Import Kategori
+                    <i class="fas fa-file-import"></i> Import
                 </button>
-                <a href="{{ url('/kategori/export_excel') }}" class="btn btn-primary"><i class="fa fa-fileexcel"></i>
-                    Export Kategori (Excel)
+                <a href="{{ url('/kategori/export_excel') }}" class="btn btn-primary">
+                    <i class="fas fa-file-excel"></i> Export Excel
                 </a>
-                <a href="{{ url('/kategori/export_pdf') }}" class="btn btn-warning"><i class="fa fa-filepdf"></i>
-                    Export Kategori (PDF)
+                <a href="{{ url('/kategori/export_pdf') }}" class="btn btn-warning">
+                    <i class="fas fa-file-pdf"></i> Export PDF
                 </a>
                 <button onclick="modalAction('{{ url('/kategori/create_ajax') }}')" class="btn btn-success">
-                    Tambah Data
+                    <i class="fas fa-plus"></i> Tambah Kategori
                 </button>
             </div>
         </div>
@@ -30,7 +30,7 @@
             <table class="table table-bordered table-striped table-hover table-sm" id="table_kategori">
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>No</th>
                         <th>Kode</th>
                         <th>Nama</th>
                         <th>Aksi</th>

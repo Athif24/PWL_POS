@@ -5,18 +5,18 @@
     <div class="card-header">
         <h3 class="card-title">Daftar Level</h3>
         <div class="card-tools">
-                <button onclick="modalAction('{{ url('/level/import') }}')" class="btn btn-info">
-                    Import Level
-                </button>
-                <a href="{{ url('/level/export_excel') }}" class="btn btn-primary"><i class="fa fa-fileexcel"></i>
-                    Export Level (Excel)
-                </a>
-                <a href="{{ url('/level/export_pdf') }}" class="btn btn-warning"><i class="fa fa-filepdf"></i>
-                    Export Level (PDF)
-                </a>
-                <button onclick="modalAction('{{ url('/level/create_ajax') }}')" class="btn btn-success">
-                    Tambah Data
-                </button>
+            <button onclick="modalAction('{{ url('/level/import') }}')" class="btn btn-info">
+                <i class="fas fa-file-import"></i> Import
+            </button>
+            <a href="{{ url('/level/export_excel') }}" class="btn btn-primary">
+                <i class="fas fa-file-excel"></i> Export Excel
+            </a>
+            <a href="{{ url('/level/export_pdf') }}" class="btn btn-warning">
+                <i class="fas fa-file-pdf"></i> Export PDF
+            </a>
+            <button onclick="modalAction('{{ url('/level/create_ajax') }}')" class="btn btn-success">
+                <i class="fas fa-plus"></i> Tambah Level
+            </button>
             </div>
         </div>
         <div class="card-body">
@@ -31,7 +31,7 @@
             <table class="table table-bordered table-striped table-hover table-sm" id="table_level">
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>No</th>
                         <th>Kode</th>
                         <th>Nama</th>
                         <th>Aksi</th>

@@ -5,16 +5,16 @@
             <h3 class="card-title">Daftar Supplier</h3>
             <div class="card-tools">
                 <button onclick="modalAction('{{ url('/supplier/import') }}')" class="btn btn-info">
-                    Import Supplier
+                    <i class="fas fa-file-import"></i> Import
                 </button>
-                <a href="{{ url('/supplier/export_excel') }}" class="btn btn-primary"><i class="fa fa-fileexcel"></i>
-                    Export Supplier (Excel)
+                <a href="{{ url('/supplier/export_excel') }}" class="btn btn-primary">
+                    <i class="fas fa-file-excel"></i> Export Excel
                 </a>
-                <a href="{{ url('/supplier/export_pdf') }}" class="btn btn-warning"><i class="fa fa-filepdf"></i>
-                    Export Supplier (PDF)
+                <a href="{{ url('/supplier/export_pdf') }}" class="btn btn-warning">
+                    <i class="fas fa-file-pdf"></i> Export PDF
                 </a>
                 <button onclick="modalAction('{{ url('/supplier/create_ajax') }}')" class="btn btn-success">
-                    Tambah Data
+                    <i class="fas fa-plus"></i> Tambah Supplier
                 </button>
             </div>
         </div>
@@ -30,7 +30,7 @@
             <table class="table table-bordered table-striped table-hover table-sm" id="table_supplier">
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>No</th>
                         <th>Kode</th>
                         <th>Nama</th>
                         <th>Alamat</th>
