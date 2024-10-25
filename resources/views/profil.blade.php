@@ -6,13 +6,21 @@
             <div class="card shadow-sm border-0 rounded-lg">
                 <div class="card-header bg-primary text-white text-center py-4">
                     <h4 class="mb-0">
-                        <i class="fas fa-user-edit"></i> Edit Profil
+                        <i class="fas fa-user-edit me-2"></i> Edit Profil
                     </h4>
                 </div>
                 <div class="card-body p-5">
                     @if(session('status'))
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        {{ session('status') }}
+                    <div class="alert alert-success alert-dismissible fade show mb-4" role="alert">
+                        <div class="d-flex align-items-center">
+                            <div class="alert-icon me-3">
+                                <i class="fas fa-check-circle fs-4"></i>
+                            </div>
+                            <div class="alert-message flex-grow-1">
+                                <strong>{{ session('status') }}</strong>
+                            </div>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
                     </div>
                     @endif
 
@@ -42,13 +50,18 @@
 
                                 <div class="form-group mb-3">
                                     <label for="username" class="form-label">{{ __('Username') }}</label>
-                                    <input id="username" type="text" 
-                                           class="form-control shadow-sm @error('username') is-invalid @enderror" 
-                                           name="username" 
-                                           value="{{ old('username', $user->username) }}" 
-                                           required 
-                                           autocomplete="username" 
-                                           placeholder="Enter your username">
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light">
+                                            <i class="fas fa-user"></i>
+                                        </span>
+                                        <input id="username" type="text" 
+                                               class="form-control @error('username') is-invalid @enderror" 
+                                               name="username" 
+                                               value="{{ old('username', $user->username) }}" 
+                                               required 
+                                               autocomplete="username" 
+                                               placeholder="Masukkan username">
+                                    </div>
                                     @error('username')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -57,14 +70,19 @@
                                 </div>
 
                                 <div class="form-group mb-3">
-                                    <label for="nama" class="form-label">{{ __('Nama') }}</label>
-                                    <input id="nama" type="text" 
-                                           class="form-control shadow-sm @error('nama') is-invalid @enderror" 
-                                           name="nama" 
-                                           value="{{ old('nama', $user->nama) }}" 
-                                           required 
-                                           autocomplete="nama" 
-                                           placeholder="Enter your full name">
+                                    <label for="nama" class="form-label">{{ __('Nama Lengkap') }}</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light">
+                                            <i class="fas fa-id-card"></i>
+                                        </span>
+                                        <input id="nama" type="text" 
+                                               class="form-control @error('nama') is-invalid @enderror" 
+                                               name="nama" 
+                                               value="{{ old('nama', $user->nama) }}" 
+                                               required 
+                                               autocomplete="nama" 
+                                               placeholder="Masukkan nama lengkap">
+                                    </div>
                                     @error('nama')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -74,11 +92,16 @@
 
                                 <div class="form-group mb-3">
                                     <label for="old_password" class="form-label">{{ __('Password Lama') }}</label>
-                                    <input id="old_password" type="password" 
-                                           class="form-control shadow-sm @error('old_password') is-invalid @enderror" 
-                                           name="old_password"
-                                           autocomplete="old-password" 
-                                           placeholder="Enter your old password">
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light">
+                                            <i class="fas fa-lock"></i>
+                                        </span>
+                                        <input id="old_password" type="password" 
+                                               class="form-control @error('old_password') is-invalid @enderror" 
+                                               name="old_password"
+                                               autocomplete="old-password" 
+                                               placeholder="Masukkan password lama">
+                                    </div>
                                     @error('old_password')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -88,11 +111,16 @@
 
                                 <div class="form-group mb-3">
                                     <label for="password" class="form-label">{{ __('Password Baru') }}</label>
-                                    <input id="password" type="password" 
-                                           class="form-control shadow-sm @error('password') is-invalid @enderror" 
-                                           name="password"
-                                           autocomplete="new-password" 
-                                           placeholder="Enter new password">
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light">
+                                            <i class="fas fa-key"></i>
+                                        </span>
+                                        <input id="password" type="password" 
+                                               class="form-control @error('password') is-invalid @enderror" 
+                                               name="password"
+                                               autocomplete="new-password" 
+                                               placeholder="Masukkan password baru">
+                                    </div>
                                     @error('password')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -101,33 +129,44 @@
                                 </div>
 
                                 <div class="form-group mb-3">
-                                    <label for="password-confirm" class="form-label">{{ __('Confirm Password') }}</label>
-                                    <input id="password-confirm" type="password" 
-                                           class="form-control shadow-sm" 
-                                           name="password_confirmation"
-                                           autocomplete="new-password" 
-                                           placeholder="Confirm new password">
+                                    <label for="password-confirm" class="form-label">{{ __('Konfirmasi Password') }}</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light">
+                                            <i class="fas fa-key"></i>
+                                        </span>
+                                        <input id="password-confirm" type="password" 
+                                               class="form-control" 
+                                               name="password_confirmation"
+                                               autocomplete="new-password" 
+                                               placeholder="Konfirmasi password baru">
+                                    </div>
                                 </div>
 
                                 <div class="form-group mb-4">
                                     <label for="profile_image" class="form-label">{{ __('Ganti Foto Profil') }}</label>
-                                    <input id="profile_image" type="file" 
-                                           class="form-control shadow-sm @error('profile_image') is-invalid @enderror" 
-                                           name="profile_image"
-                                           accept="image/*">
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light">
+                                            <i class="fas fa-image"></i>
+                                        </span>
+                                        <input id="profile_image" type="file" 
+                                               class="form-control @error('profile_image') is-invalid @enderror" 
+                                               name="profile_image"
+                                               accept="image/*">
+                                    </div>
                                     @error('profile_image')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
-                                    <small class="form-text text-muted">
+                                    <small class="form-text text-muted mt-1">
+                                        <i class="fas fa-info-circle me-1"></i>
                                         File yang diizinkan: JPG, JPEG, PNG. Maksimal 2MB.
                                     </small>
                                 </div>
 
                                 <div class="form-group mb-0 text-end">
-                                    <button type="submit" class="btn btn-primary shadow-sm px-4">
-                                        <i class="fas fa-save me-2"></i>{{ __('Update Profil') }}
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-save me-2"></i>{{ __(' Update Profil') }}
                                     </button>
                                 </div>
                             </form>
@@ -140,23 +179,29 @@
 </div>
 @endsection
 
-@section('scripts')
+@push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    // Preview image before upload
-    document.getElementById('profile_image').addEventListener('change', function(e) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            const preview = document.querySelector('.position-relative img');
-            preview.src = e.target.result;
+document.addEventListener('DOMContentLoaded', function() {
+    // Menangani alert dismissible
+    var alertNode = document.querySelector('.alert');
+    if(alertNode) {
+        // Membuat instance alert Bootstrap
+        var alert = new bootstrap.Alert(alertNode);
+        
+        // Menangani klik pada tombol close
+        var closeButton = alertNode.querySelector('.btn-close');
+        if(closeButton) {
+            closeButton.addEventListener('click', function() {
+                alert.close();
+            });
         }
-        reader.readAsDataURL(this.files[0]);
-    });
-
-    // Auto-hide alert after 5 seconds
-    window.setTimeout(function() {
-        $(".alert").fadeTo(500, 0).slideUp(500, function(){
-            $(this).remove(); 
-        });
-    }, 5000);
+        
+        // Auto close setelah 5 detik
+        setTimeout(function() {
+            alert.close();
+        }, 5000);
+    }
+});
 </script>
-@endsection
+@endpush
