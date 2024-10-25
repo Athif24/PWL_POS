@@ -1,17 +1,23 @@
 @empty($stok)
     <div id="modal-master" class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Kesalahan</h5>
-                <button type="button" class="close" data-dismiss="modal" arialabel="Close"><span
-                        aria-hidden="true">&times;</span></button>
+        <div class="modal-content border-0 shadow">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title">
+                    <i class="fas fa-exclamation-triangle mr-2"></i>Kesalahan
+                </h5>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-            <div class="modal-body">
-                <div class="alert alert-danger">
-                    <h5><i class="icon fas fa-ban"></i> Kesalahan!!!</h5>
-                    Data yang anda cari tidak ditemukan
+            <div class="modal-body p-4">
+                <div class="alert alert-danger mb-4">
+                    <h5 class="mb-0"><i class="icon fas fa-ban mr-2"></i>Data yang anda cari tidak ditemukan</h5>
                 </div>
-                <a href="{{ url('/stok') }}" class="btn btn-warning">Kembali</a>
+                <div class="text-right">
+                    <a href="{{ url('/stok') }}" class="btn btn-warning px-4">
+                        <i class="fas fa-arrow-left mr-2"></i>Kembali
+                    </a>
+                </div>
             </div>
         </div>
     </div>
@@ -21,42 +27,56 @@
         @method('DELETE')
         <div id="modal-master" class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Hapus Data Stok</h5>
-                    <button type="button" class="close" data-dismiss="modal" arialabel="Close"><span
-                            aria-hidden="true">&times;</span></button>
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title">
+                        <i class="fas fa-trash-alt mr-2"></i>Hapus Data Stok
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-                <div class="modal-body">
-                    <div class="alert alert-warning">
-                        <h5><i class="icon fas fa-ban"></i> Konfirmasi !!!</h5>
-                        Apakah Anda ingin menghapus data seperti di bawah ini?
+                <div class="modal-body p-4">
+                    <div class="alert alert-warning mb-4">
+                        <h5 class="mb-0">
+                            <i class="icon fas fa-exclamation-triangle mr-2"></i>Konfirmasi
+                        </h5>
+                        <p class="mb-0 mt-2">Apakah Anda ingin menghapus data seperti di bawah ini?</p>
                     </div>
-                    <table class="table table-sm table-bordered table-striped">
-                        <tr>
-                            <th class="text-right col-3">Nama Supplier :</th>
-                            <td class="col-9">{{ $stok->supplier->supplier_nama }}</td>
-                        </tr>
-                        <tr>
-                            <th class="text-right col-3">Nama Barang :</th>
-                            <td class="col-9">{{ $stok->barang->barang_nama }}</td>
-                        </tr>
-                        <tr>
-                            <th class="text-right col-3">Penginput :</th>
-                            <td class="col-9">{{ $stok->user->nama }}</td>
-                        </tr>
-                        <tr>
-                            <th class="text-right col-3">Tanggal :</th>
-                            <td class="col-9">{{ $stok->stok_tanggal }}</td>
-                        </tr>
-                        <tr>
-                            <th class="text-right col-3">Jumlah :</th>
-                            <td class="col-9">{{ $stok->stok_jumlah }}</td>
-                        </tr>
-                    </table>
+                    
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped mb-0">
+                            <tbody>
+                                <tr>
+                                    <th class="bg-light text-right width-30">Nama Supplier</th>
+                                    <td>{{ $stok->supplier->supplier_nama }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="bg-light text-right">Nama Barang</th>
+                                    <td>{{ $stok->barang->barang_nama }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="bg-light text-right">Penginput</th>
+                                    <td>{{ $stok->user->nama }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="bg-light text-right">Tanggal</th>
+                                    <td>{{ $stok->stok_tanggal }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="bg-light text-right">Jumlah</th>
+                                    <td>{{ $stok->stok_jumlah }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" data-dismiss="modal" class="btn btn-warning">Batal</button>
-                    <button type="submit" class="btn btn-primary">Ya, Hapus</button>
+                <div class="modal-footer bg-light">
+                    <button type="button" class="btn btn-warning px-4" data-dismiss="modal">
+                        <i class="fas fa-times mr-2"></i> Batal
+                    </button>
+                    <button type="submit" class="btn btn-danger px-4">
+                        <i class="fas fa-trash-alt mr-2"></i> Ya, Hapus
+                    </button>
                 </div>
             </div>
         </div>
