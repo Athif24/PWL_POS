@@ -97,7 +97,7 @@
                     <th class="text-center">No</th>
                     <th>Kode User</th>
                     <th>Nama User</th>
-                    <th>Alamat User</th>
+                    <th>Password User</th>
                 </tr>
             </thead>
             <tbody>

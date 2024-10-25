@@ -372,20 +372,20 @@ class BarangController extends Controller
         exit; // keluar proses
     }
 
-    public function export_pdf() {
-        // ambil data barang yang akan di export
+    public function export_pdf()
+    {
         $barang = BarangModel::select('kategori_id', 'barang_kode', 'barang_nama', 'harga_beli', 'harga_jual')
-        ->orderBy('kategori_id')
-        ->orderBy('barang_kode')
-        ->with('kategori')
-        ->get();
+            ->orderBy('kategori_id')
+            ->orderBy('barang_kode')
+            ->with('kategori')
+            ->get();
 
         // use Barryvdh\DomPDF\Facade\Pdf;
         $pdf = Pdf::loadView('barang.export_pdf', ['barang' => $barang]);
-        $pdf->setPaper('a4', 'portrait'); // set ukuran kertas dan orientasi
-        $pdf->setOption("isRemoteEnable", true); // set true jika ada gambar dari url
+        $pdf->setPaper('a4', 'portrait'); // Set ukuran kertas dan orientasi
+        $pdf->setOption('isRemoteEnabled', true); // Set true jika ada gambar dari URL
         $pdf->render();
 
-        return $pdf->stream('Data Barang '.date('Y-m-d H:i:s').'pdf');
+        return $pdf->stream('Data Barang ' . date('Y-m-d H:i:s') . '.pdf');
     }
 }
