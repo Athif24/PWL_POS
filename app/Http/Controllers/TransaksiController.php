@@ -182,7 +182,7 @@ class TransaksiController extends Controller
                 'penjualan_tanggal' => 'nullable|date',  // Ubah required menjadi nullable
                 'user_id' => 'required|integer'
             ];
-    
+
             $validator = Validator::make($request->all(), $rules);
             if ($validator->fails()) {
                 return response()->json([
@@ -191,7 +191,7 @@ class TransaksiController extends Controller
                     'msgField' => $validator->errors()
                 ]);
             }
-    
+
             DB::beginTransaction();
             try {
                 $penjualan = PenjualanModel::find($id);
@@ -201,21 +201,21 @@ class TransaksiController extends Controller
                         'message' => 'Data tidak ditemukan'
                     ]);
                 }
-    
+
                 // Update data header penjualan
                 $updateData = [
                     'penjualan_kode' => $request->penjualan_kode,
                     'pembeli' => $request->pembeli,
                     'user_id' => $request->user_id
                 ];
-    
+
                 // Hanya update tanggal jika diisi
                 if ($request->filled('penjualan_tanggal')) {
                     $updateData['penjualan_tanggal'] = $request->penjualan_tanggal;
                 }
-    
+
                 $penjualan->update($updateData);
-    
+
                 DB::commit();
                 return response()->json([
                     'status' => true,
@@ -259,34 +259,32 @@ class TransaksiController extends Controller
                 $detail = PenjualanDetailModel::where('penjualan_id', $penjualan_id)
                     ->where('detail_id', $detail_id)
                     ->firstOrFail();
-    
+
                 // Hitung jumlah item yang tersisa
                 $remainingItems = PenjualanDetailModel::where('penjualan_id', $penjualan_id)
                     ->where('detail_id', '!=', $detail_id)
                     ->count();
-    
+
                 // Hapus detail item
                 $detail->delete();
-    
+
                 // Jika tidak ada item tersisa, hapus header penjualan
                 if ($remainingItems === 0) {
                     PenjualanModel::findOrFail($penjualan_id)->delete();
                 }
-    
+
                 DB::commit();
-    
+
                 return response()->json([
                     'status' => true,
                     'message' => 'Data berhasil dihapus'
                 ], 200);
-    
             } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
                 DB::rollBack();
                 return response()->json([
                     'status' => false,
                     'message' => 'Data tidak ditemukan'
                 ], 404);
-                
             } catch (\Exception $e) {
                 DB::rollBack();
                 return response()->json([
@@ -295,11 +293,11 @@ class TransaksiController extends Controller
                 ], 500);
             }
         }
-    
+
         // Jika bukan request AJAX, redirect
         return redirect('/transaksi')->with('error', 'Invalid request method');
     }
-    
+
     public function import()
     {
         return view('transaksi.import');
@@ -311,7 +309,7 @@ class TransaksiController extends Controller
             $rules = [
                 'file_transaksi' => ['required', 'mimes:xlsx', 'max:1024']
             ];
-            
+
             $validator = Validator::make($request->all(), $rules);
             if ($validator->fails()) {
                 return response()->json([
@@ -320,7 +318,7 @@ class TransaksiController extends Controller
                     'msgField' => $validator->errors()
                 ]);
             }
-    
+
             try {
                 $file = $request->file('file_transaksi');
                 $reader = IOFactory::createReader('Xlsx');
@@ -328,22 +326,24 @@ class TransaksiController extends Controller
                 $spreadsheet = $reader->load($file->getRealPath());
                 $sheet = $spreadsheet->getActiveSheet();
                 $data = $sheet->toArray(null, false, true, true);
-    
+
                 DB::beginTransaction();
-    
+
                 $currentPenjualan = null;
                 $currentPenjualanId = null;
-    
+
                 if (count($data) > 1) {
                     foreach ($data as $row => $value) {
                         if ($row > 1) { // Skip header row
                             // Validasi data minimal yang diperlukan
-                            if (empty($value['A']) || empty($value['B']) || empty($value['C']) || 
-                                empty($value['D']) || empty($value['E']) || empty($value['F']) || 
-                                empty($value['G'])) {
+                            if (
+                                empty($value['A']) || empty($value['B']) || empty($value['C']) ||
+                                empty($value['D']) || empty($value['E']) || empty($value['F']) ||
+                                empty($value['G'])
+                            ) {
                                 continue;
                             }
-    
+
                             // Jika kode penjualan berbeda dengan sebelumnya, buat transaksi baru
                             if ($currentPenjualan !== $value['A']) {
                                 // Cek apakah kode penjualan sudah ada
@@ -351,21 +351,21 @@ class TransaksiController extends Controller
                                 if ($existingPenjualan) {
                                     continue; // Skip jika sudah ada
                                 }
-    
+
                                 // Convert date
                                 try {
                                     $tanggal = \Carbon\Carbon::createFromFormat('d/m/Y', $value['C'])->format('Y-m-d');
                                 } catch (\Exception $e) {
                                     $tanggal = now()->format('Y-m-d');
                                 }
-    
+
                                 // Validasi user_id
                                 $user_id = intval($value['D']);
                                 $user = UserModel::find($user_id);
                                 if (!$user) {
                                     continue;
                                 }
-    
+
                                 // Create new penjualan header
                                 $penjualan = PenjualanModel::create([
                                     'penjualan_kode' => $value['A'],    // Kode Penjualan
@@ -373,17 +373,17 @@ class TransaksiController extends Controller
                                     'penjualan_tanggal' => $tanggal,    // Tanggal Penjualan
                                     'user_id' => $user_id               // ID Petugas
                                 ]);
-    
+
                                 $currentPenjualan = $value['A'];
                                 $currentPenjualanId = $penjualan->penjualan_id;
                             }
-    
+
                             // Cari barang berdasarkan nama
                             $barang = BarangModel::where('barang_nama', 'like', '%' . $value['E'] . '%')->first();
                             if (!$barang) {
                                 continue; // Skip jika barang tidak ditemukan
                             }
-    
+
                             // Create detail penjualan
                             PenjualanDetailModel::create([
                                 'penjualan_id' => $currentPenjualanId,
@@ -393,19 +393,18 @@ class TransaksiController extends Controller
                             ]);
                         }
                     }
-    
+
                     DB::commit();
                     return response()->json([
                         'status' => true,
                         'message' => 'Data transaksi berhasil diimport'
                     ]);
                 }
-    
+
                 return response()->json([
                     'status' => false,
                     'message' => 'Tidak ada data yang diimport'
                 ]);
-    
             } catch (\Exception $e) {
                 DB::rollBack();
                 return response()->json([
@@ -417,16 +416,17 @@ class TransaksiController extends Controller
         return redirect('/');
     }
 
-    public function export_excel() {
+    public function export_excel()
+    {
         // Get transaction data with relationships
         $transaksi = PenjualanModel::with(['user', 'penjualan_detail.barang'])
             ->orderBy('penjualan_tanggal', 'desc')
             ->get();
-    
+
         // Create new spreadsheet
         $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
-    
+
         // Set headers
         $sheet->setCellValue('A1', 'No');
         $sheet->setCellValue('B1', 'Kode Transaksi');
@@ -437,21 +437,21 @@ class TransaksiController extends Controller
         $sheet->setCellValue('G1', 'Harga');
         $sheet->setCellValue('H1', 'Jumlah');
         $sheet->setCellValue('I1', 'Total');
-    
+
         // Style the header
         $sheet->getStyle('A1:I1')->getFont()->setBold(true);
-        
+
         $no = 1;
         $baris = 2;
         $total = 0;
-    
+
         foreach ($transaksi as $t) {
             // Pastikan penjualan_detail ada dan memiliki data
             if ($t->penjualan_detail->isNotEmpty()) {
                 foreach ($t->penjualan_detail as $detail) {
                     $total_item = $detail->harga * $detail->jumlah;
                     $total += $total_item;
-    
+
                     $sheet->setCellValue('A' . $baris, $no);
                     $sheet->setCellValue('B' . $baris, $t->penjualan_kode);
                     $sheet->setCellValue('C' . $baris, date('d/m/Y', strtotime($t->penjualan_tanggal)));
@@ -461,75 +461,80 @@ class TransaksiController extends Controller
                     $sheet->setCellValue('G' . $baris, $detail->harga);
                     $sheet->setCellValue('H' . $baris, $detail->jumlah);
                     $sheet->setCellValue('I' . $baris, $total_item);
-    
+
                     // Format currency columns
                     $sheet->getStyle('G' . $baris)->getNumberFormat()
                         ->setFormatCode('#,##0');
                     $sheet->getStyle('I' . $baris)->getNumberFormat()
                         ->setFormatCode('#,##0');
-    
+
                     $baris++;
                     $no++;
                 }
             }
         }
-    
+
         // Add total row
         $sheet->setCellValue('H' . $baris, 'Total Penjualan:');
         $sheet->setCellValue('I' . $baris, $total);
         $sheet->getStyle('H' . $baris . ':I' . $baris)->getFont()->setBold(true);
         $sheet->getStyle('I' . $baris)->getNumberFormat()
             ->setFormatCode('#,##0');
-    
+
         // Auto-size columns
-        foreach(range('A','I') as $columnID) {
+        foreach (range('A', 'I') as $columnID) {
             $sheet->getColumnDimension($columnID)->setAutoSize(true);
         }
-    
+
         $sheet->setTitle('Data Transaksi');
-    
+
         // Create Excel writer
         $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
         $filename = 'Data Transaksi ' . date('Y-m-d H:i:s') . '.xlsx';
-    
+
         // Set headers for download
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header('Content-Disposition: attachment;filename="' . $filename . '"');
         header('Cache-Control: max-age=0');
         header('Cache-Control: max-age=1');
-        header('Expires: Mon, 26 Jul 1997 05:00:00 GMT'); 
+        header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
         header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
         header('Cache-Control: cache, must-revalidate');
         header('Pragma: public');
-    
+
         $writer->save('php://output');
         exit;
     }
-    
-    public function export_pdf() {
+
+    public function export_pdf()
+    {
         // Get transaction data with relationships
         $transaksi = PenjualanModel::with(['user', 'penjualan_detail.barang'])
             ->orderBy('penjualan_tanggal', 'desc')
             ->get();
-    
+
         // Calculate total with proper access to collection items
-        $total = $transaksi->sum(function($t) {
-            return $t->penjualan_detail->sum(function($detail) {
+        $total = $transaksi->sum(function ($t) {
+            return $t->penjualan_detail->sum(function ($detail) {
                 return $detail->harga * $detail->jumlah;
             });
         });
-    
+
         // Generate PDF
         $pdf = Pdf::loadView('transaksi.export_pdf', [
             'transaksi' => $transaksi,
             'total' => $total
         ]);
-    
+
         // Configure PDF
         $pdf->setPaper('a4', 'portrait');
         $pdf->setOption("isRemoteEnabled", true);
+        $pdf->setOption('margin-top', '10mm');
+        $pdf->setOption('margin-right', '15mm');
+        $pdf->setOption('margin-bottom', '10mm');
+        $pdf->setOption('margin-left', '15mm');
         $pdf->render();
-    
+
         // Stream PDF to browser
         return $pdf->stream('Data Transaksi ' . date('Y-m-d H:i:s') . '.pdf');
     }

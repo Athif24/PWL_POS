@@ -1,22 +1,27 @@
 <!--- Cek jika data tidak ditemukan --->
 @empty($transaksi)
-    <div id="modal-master" class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Kesalahan</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+<div id="modal-master" class="modal-dialog modal-lg" role="document">
+    <div class="modal-content border-0 shadow">
+        <div class="modal-header bg-danger text-white">
+            <h5 class="modal-title">
+                <i class="fas fa-exclamation-triangle mr-2"></i>Kesalahan
+            </h5>
+            <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body p-4">
+            <div class="alert alert-danger mb-4">
+                <h5 class="mb-0"><i class="icon fas fa-ban mr-2"></i>Data yang anda cari tidak ditemukan</h5>
             </div>
-            <div class="modal-body">
-                <div class="alert alert-danger">
-                    <h5><i class="icon fas fa-ban"></i> Kesalahan!!!</h5>
-                    Data yang anda cari tidak ditemukan
-                </div>
-                <a href="{{ url('/transaksi') }}" class="btn btn-warning">Kembali</a>
+            <div class="text-right">
+                <a href="{{ url('/transaksi') }}" class="btn btn-warning px-4">
+                    <i class="fas fa-arrow-left mr-2"></i>Kembali
+                </a>
             </div>
         </div>
     </div>
+</div>
 @else
     <!--- Form untuk delete dengan AJAX --->
     <form action="{{ url('/transaksi/' . $transaksi->penjualan_id . '/delete_item/' . $detail->detail_id) }}" 
@@ -27,17 +32,20 @@
         @method('DELETE')
         <div id="modal-master" class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Hapus Data Transaksi</h5>
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title">
+                        <i class="fas fa-trash-alt mr-2"></i>Hapus Data Stok
+                    </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    <!--- Alert konfirmasi --->
-                    <div class="alert alert-warning">
-                        <h5><i class="icon fas fa-exclamation-triangle"></i> Konfirmasi !!!</h5>
-                        Apakah Anda yakin ingin menghapus data transaksi seperti di bawah ini?
+                <div class="modal-body p-4">
+                    <div class="alert alert-warning mb-4">
+                        <h5 class="mb-0">
+                            <i class="icon fas fa-exclamation-triangle mr-2"></i>Konfirmasi
+                        </h5>
+                        <p class="mb-0 mt-2">Apakah Anda ingin menghapus data seperti di bawah ini?</p>
                     </div>
 
                     <!--- Tabel detail data yang akan dihapus --->
@@ -74,7 +82,7 @@
                 </div>
                 <div class="modal-footer">
                     <!--- Tombol aksi --->
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    <button type="button" class="btn btn-warning" data-dismiss="modal">
                         <i class="fas fa-times"></i> Batal
                     </button>
                     <button type="submit" class="btn btn-danger">
