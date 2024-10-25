@@ -134,14 +134,30 @@
             <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
                 <i class="fas fa-th-large"></i>
             </a>
-        <li class="nav-item d-none d-sm-inline-block">
-            <a href="{{ url('logout') }}" class="nav-link">
-                <i class="fas fa-sign-out-alt"></i>
-            </a>
         </li>
-        <form id="logout-form" action="{{ url('logout') }}" method="POST" class="d-none">
-            @csrf
-        </form>
-        </li>
-    </ul>
-</nav>
+            <li class="nav-item">
+                <a class="nav-link"  role="button" onclick="confirmLogout();" title="Logout">
+                  <i class="fas fa-sign-out-alt"></i>
+                </a>
+              </li>
+            </ul>
+          </nav>
+          <script src="{{ asset('adminlte/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
+        <script>
+            function confirmLogout() {
+                Swal.fire({
+                    title: 'Apakah Anda yakin?',
+                    text: "Anda akan keluar dari aplikasi!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Ya!',
+                    cancelButtonText: 'Tidak, tetap di sini!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = "{{ url('logout') }}"; // URL logout
+                    }
+                });
+            }
+        </script>

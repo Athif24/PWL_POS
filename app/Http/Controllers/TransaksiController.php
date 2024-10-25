@@ -175,16 +175,14 @@ class TransaksiController extends Controller
     public function update_ajax(Request $request, string $id)
     {
         if ($request->ajax() || $request->wantsJson()) {
+            // Validasi hanya untuk field yang diedit
             $rules = [
                 'penjualan_kode' => 'required|string|max:10|unique:t_penjualan,penjualan_kode,' . $id . ',penjualan_id',
                 'pembeli' => 'required|string|max:100',
-                'penjualan_tanggal' => 'nullable|date',
-                'user_id' => 'required|integer',
-                'barang_id' => 'required|integer',
-                'harga' => 'required|numeric',
-                'jumlah' => 'required|integer'
+                'penjualan_tanggal' => 'nullable|date',  // Ubah required menjadi nullable
+                'user_id' => 'required|integer'
             ];
-
+    
             $validator = Validator::make($request->all(), $rules);
             if ($validator->fails()) {
                 return response()->json([
@@ -193,7 +191,7 @@ class TransaksiController extends Controller
                     'msgField' => $validator->errors()
                 ]);
             }
-
+    
             DB::beginTransaction();
             try {
                 $penjualan = PenjualanModel::find($id);
@@ -203,20 +201,21 @@ class TransaksiController extends Controller
                         'message' => 'Data tidak ditemukan'
                     ]);
                 }
-
-                $penjualan->update([
+    
+                // Update data header penjualan
+                $updateData = [
                     'penjualan_kode' => $request->penjualan_kode,
                     'pembeli' => $request->pembeli,
-                    'penjualan_tanggal' => $request->penjualan_tanggal,
                     'user_id' => $request->user_id
-                ]);
-
-                $penjualan->penjualan_detail()->update([
-                    'barang_id' => $request->barang_id,
-                    'harga' => $request->harga,
-                    'jumlah' => $request->jumlah
-                ]);
-
+                ];
+    
+                // Hanya update tanggal jika diisi
+                if ($request->filled('penjualan_tanggal')) {
+                    $updateData['penjualan_tanggal'] = $request->penjualan_tanggal;
+                }
+    
+                $penjualan->update($updateData);
+    
                 DB::commit();
                 return response()->json([
                     'status' => true,

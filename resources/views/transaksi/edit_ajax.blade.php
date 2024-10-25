@@ -29,7 +29,6 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <!-- Data yang bisa diedit -->
                     <div class="card mb-3">
                         <div class="card-header">
                             <h6 class="mb-0">Informasi Transaksi</h6>
@@ -65,9 +64,10 @@
                                 <input type="date" name="penjualan_tanggal" id="penjualan_tanggal" class="form-control"
                                     value="{{ $transaksi->penjualan_tanggal }}">
                                 <small id="error-penjualan_tanggal" class="error-text form-text text-danger"></small>
-                            </div>                            
+                            </div>
                         </div>
                     </div>
+                </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-warning" data-dismiss="modal">Batal</button>
                     <button type="submit" class="btn btn-primary">Simpan</button>
@@ -81,8 +81,7 @@
             $("#form-edit").validate({
                 rules: {
                     user_id: {
-                        required: true,
-                        number: true
+                        required: true
                     },
                     penjualan_kode: {
                         required: true,
@@ -93,13 +92,12 @@
                         maxlength: 100
                     },
                     penjualan_tanggal: {
-                        date: true // hanya mengecek format tanggal jika diisi
+                        date: true
                     }
                 },
                 messages: {
                     user_id: {
-                        required: "Petugas harus dipilih",
-                        number: "Petugas tidak valid"
+                        required: "Petugas harus dipilih"
                     },
                     penjualan_kode: {
                         required: "Kode penjualan harus diisi",
@@ -110,7 +108,7 @@
                         maxlength: "Nama pembeli maksimal 100 karakter"
                     },
                     penjualan_tanggal: {
-                        date: "Format tanggal tidak valid" // pesan kesalahan hanya jika format tanggal salah
+                        date: "Format tanggal tidak valid"
                     }
                 },
                 submitHandler: function(form) {
@@ -125,19 +123,32 @@
                                     icon: 'success',
                                     title: 'Berhasil',
                                     text: response.message
+                                }).then((result) => {
+                                    // Reload tabel setelah sukses
+                                    if(typeof tableTransaksi !== 'undefined') {
+                                        tableTransaksi.ajax.reload();
+                                    }
                                 });
-                                tableTransaksi.ajax.reload();
                             } else {
                                 $('.error-text').text('');
-                                $.each(response.msgField, function(prefix, val) {
-                                    $('#error-' + prefix).text(val[0]);
-                                });
+                                if(response.msgField) {
+                                    $.each(response.msgField, function(prefix, val) {
+                                        $('#error-' + prefix).text(val[0]);
+                                    });
+                                }
                                 Swal.fire({
                                     icon: 'error',
                                     title: 'Terjadi Kesalahan',
                                     text: response.message
                                 });
                             }
+                        },
+                        error: function(xhr) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Terjadi Kesalahan',
+                                text: 'Gagal menghubungi server'
+                            });
                         }
                     });
                     return false;
@@ -147,13 +158,13 @@
                     error.addClass('invalid-feedback');
                     element.closest('.form-group').append(error);
                 },
-                highlight: function(element, errorClass, validClass) {
+                highlight: function(element) {
                     $(element).addClass('is-invalid');
                 },
-                unhighlight: function(element, errorClass, validClass) {
+                unhighlight: function(element) {
                     $(element).removeClass('is-invalid');
                 }
             });
         });
-    </script>    
+    </script>
 @endempty
