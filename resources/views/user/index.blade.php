@@ -26,7 +26,7 @@
                         <div class="form-group form-group-sm row text-sm mb-0">
                             <label for="filter_date" class="col-md-1 col-form-label">Filter</label>
                             <div class="col-md-3">
-                                <select name="filter_level" class="form-control form-control-sm filter_level">
+                                <select class="form-control" id="level_id" name="level_id" required>
                                     <option value="">- Semua -</option>
                                     @foreach ($level as $l)
                                         <option value="{{ $l->level_id }}">{{ $l->level_nama }}</option>
