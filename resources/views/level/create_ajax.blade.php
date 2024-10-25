@@ -2,26 +2,33 @@
     @csrf
     <div id="modal-master" class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Tambah Data Level</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                        aria-hidden="true">&times;</span></button>
+            <div class="modal-header bg-primary">
+                <h5 class="modal-title text-white"><i class="fas fa-plus-circle mr-2"></i>Tambah Data Level</h5>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <label>Kode</label>
-                    <input value="" type="text" name="level_kode" id="level_kode" class="form-control" required>
+                    <label><i class="fas fa-key mr-1"></i>Kode Level</label>
+                    <input type="text" name="level_kode" id="level_kode" class="form-control" 
+                           placeholder="Masukkan kode level (3 karakter)" required>
                     <small id="error-level_kode" class="error-text form-text text-danger"></small>
                 </div>
                 <div class="form-group">
-                    <label>Nama</label>
-                    <input value="" type="text" name="level_nama" id="level_nama" class="form-control" required>
+                    <label><i class="fas fa-tag mr-1"></i>Nama Level</label>
+                    <input type="text" name="level_nama" id="level_nama" class="form-control" 
+                           placeholder="Masukkan nama level" required>
                     <small id="error-level_nama" class="error-text form-text text-danger"></small>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" data-dismiss="modal" class="btn btn-warning">Batal</button>
-                <button type="submit" class="btn btn-primary">Simpan</button>
+            <div class="modal-footer bg-light">
+                <button type="button" class="btn btn-warning" data-dismiss="modal">
+                    <i class="fas fa-times mr-2"></i>Batal
+                </button>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save mr-2"></i>Simpan
+                </button>
             </div>
         </div>
     </div>
