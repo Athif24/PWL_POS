@@ -28,7 +28,7 @@
         <div class="card card-outline card-primary">
             <div class="card-header text-center"><a href="{{ url('/') }}" class="h1"><b>PWL</b><b> POS</b></a></div>
             <div class="card-body">
-                <p class="login-box-msg">Sign in to start your session</p>
+                <p class="login-box-msg">Masuk untuk memulai sesi Anda</p>
                 <form action="{{ url('login') }}" method="POST" id="form-login">
                     @csrf
                     <div class="input-group mb-3">
@@ -54,18 +54,18 @@
                     <div class="row">
                         <div class="col-8">
                             <div class="icheck-primary">
-                                <input type="checkbox" id="remember"><label for="remember">Remember Me</label>
+                                <input type="checkbox" id="remember"><label for="remember">Ingat Saya</label>
                             </div>
                         </div>
                         <!-- /.col -->
                         <div class="col-4">
-                            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                            <button type="submit" class="btn btn-primary btn-block">Masuk</button>
                         </div>
                         <!-- /.col -->
                     </div>
                 </form>
                 <div class="text-center mt-3">
-                    <p>Tidak mempunyai akun? <a href="{{ url('register') }}">Register</a></p>
+                    <p>Tidak mempunyai akun? <a href="{{ url('register') }}">Daftar</a></p>
                 </div>
             </div>
             <!-- /.card-body -->

@@ -55,7 +55,7 @@
                 <a href="{{ url('/') }}" class="h1"><b>PWL</b><b> POS</b></a>
             </div>
             <div class="card-body">
-                <p class="login-box-msg">Register a New User</p>
+                <p class="login-box-msg">Daftar sebagai Pengguna Baru</p>
                 <form action="{{ url('register') }}" method="POST" id="form-register" class="form-horizontal">
                     @csrf
                     <div class="form-group row">

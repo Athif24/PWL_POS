@@ -37,7 +37,7 @@
                     <!--- Alert konfirmasi --->
                     <div class="alert alert-warning">
                         <h5><i class="icon fas fa-exclamation-triangle"></i> Konfirmasi !!!</h5>
-                        Apakah Anda yakin ingin menghapus data barang seperti di bawah ini?
+                        Apakah Anda yakin ingin menghapus data transaksi seperti di bawah ini?
                     </div>
 
                     <!--- Tabel detail data yang akan dihapus --->
