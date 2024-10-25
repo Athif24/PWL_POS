@@ -2,33 +2,54 @@
     @csrf
     <div id="modal-master" class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Import Data Level</h5>
-                <button type="button" class="close" data-dismiss="modal" arialabel="Close"><span
-                        aria-hidden="true">&times;</span></button>
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="exampleModalLabel">
+                    <i class="fas fa-file-import mr-2"></i>Import Data Level
+                </h5>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label>Download Template</label>
-                    <a href="{{ asset('template_level.xlsx') }}" class="btn btn-info btnsm" download><i
-                            class="fa fa-file-excel"></i>Download</a>
-                    <small id="error-level_id" class="error-text form-text textdanger"></small>
+
+            <div class="modal-body p-4">
+                <div class="form-group mb-4">
+                    <label class="font-weight-bold mb-2">Template Excel</label>
+                    <div>
+                        <a href="{{ asset('template_level.xlsx') }}" class="btn btn-info btn-sm" download>
+                            <i class="fa fa-file-excel"></i> Download Template
+                        </a>
+                    </div>
+                    <small id="error-level_id" class="error-text form-text text-danger"></small>
                 </div>
+
                 <div class="form-group">
-                    <label>Pilih File</label>
-                    <input type="file" name="file_level" id="file_level" class="form-control" required>
-                    <small id="error-file_level" class="error-text form-text textdanger"></small>
+                    <label class="font-weight-bold mb-2">Upload File Excel</label>
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="file_level" name="file_level" required>
+                        <label class="custom-file-label" for="file_level">Pilih file...</label>
+                    </div>
+                    <small class="form-text text-muted">Format yang didukung: .xlsx</small>
+                    <small id="error-file_level" class="error-text form-text text-danger"></small>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" data-dismiss="modal" class="btn btn-warning">Batal</button>
-                <button type="submit" class="btn btn-primary">Upload</button>
+
+            <div class="modal-footer bg-light">
+                <button type="button" class="btn btn-warning" data-dismiss="modal">
+                    <i class="fas fa-times mr-2"></i>Batal
+                </button>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-upload mr-2"></i>Upload
+                </button>
             </div>
         </div>
     </div>
 </form>
 <script>
-        $(document).ready(function() {
+    $(document).ready(function() {
+        $('.custom-file-input').on('change', function() {
+            var fileName = $(this).val().split('\\').pop();
+            $(this).next('.custom-file-label').html(fileName);
+        });
         $("#form-import").validate({
             rules: {
                 file_level: {
