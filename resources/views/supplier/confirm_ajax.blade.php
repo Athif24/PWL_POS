@@ -21,34 +21,41 @@
         @method('DELETE')
         <div id="modal-master" class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Hapus Data Supplier</h5>
-                    <button type="button" class="close" data-dismiss="modal" arialabel="Close"><span
-                            aria-hidden="true">&times;</span></button>
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title" id="exampleModalLabel">
+                        <i class="fas fa-trash-alt mr-2"></i>Hapus Data Supplier
+                    </h5>
+                    <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
                 <div class="modal-body">
                     <div class="alert alert-warning">
-                        <h5><i class="icon fas fa-ban"></i> Konfirmasi !!!</h5>
-                        Apakah Anda ingin menghapus data seperti di bawah ini?
+                        <h5><i class="icon fas fa-exclamation-triangle"></i> Konfirmasi</h5>
+                        Apakah Anda yakin ingin menghapus data supplier berikut?
                     </div>
-                    <table class="table table-sm table-bordered table-striped">
+                    <table class="table table-striped table-bordered">
                         <tr>
-                            <th class="text-right col-3">Kode :</th>
-                            <td class="col-9">{{ $supplier->supplier_kode }}</td>
+                            <th width="30%" class="bg-light">Kode Supplier</th>
+                            <td>{{ $supplier->supplier_kode }}</td>
                         </tr>
                         <tr>
-                            <th class="text-right col-3">Nama :</th>
-                            <td class="col-9">{{ $supplier->supplier_nama }}</td>
+                            <th class="bg-light">Nama Supplier</th>
+                            <td>{{ $supplier->supplier_nama }}</td>
                         </tr>
                         <tr>
-                            <th class="text-right col-3">Alamat :</th>
-                            <td class="col-9">{{ $supplier->supplier_alamat }}</td>
+                            <th class="bg-light">Alamat</th>
+                            <td>{{ $supplier->supplier_alamat }}</td>
                         </tr>
                     </table>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" data-dismiss="modal" class="btn btn-warning">Batal</button>
-                    <button type="submit" class="btn btn-primary">Ya, Hapus</button>
+                <div class="modal-footer bg-light">
+                    <button type="button" class="btn btn-warning" data-dismiss="modal">
+                        <i class="fas fa-times mr-1"></i> Batal
+                    </button>
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fas fa-trash-alt mr-1"></i> Ya, Hapus
+                    </button>
                 </div>
             </div>
         </div>

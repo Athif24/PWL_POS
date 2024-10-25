@@ -2,31 +2,44 @@
     @csrf
     <div id="modal-master" class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Tambah Data Supplier</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                        aria-hidden="true">&times;</span></button>
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="exampleModalLabel">
+                    <i class="fas fa-plus-circle mr-2"></i>Tambah Data Supplier
+                </h5>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <div class="modal-body">
-                <div class="form-group">
-                    <label>Kode</label>
-                    <input value="" type="text" name="supplier_kode" id="supplier_kode" class="form-control" required>
-                    <small id="error-supplier_kode" class="error-text form-text text-danger"></small>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Kode Supplier</label>
+                    <div class="col-sm-9">
+                        <input type="text" name="supplier_kode" id="supplier_kode" class="form-control" required>
+                        <small id="error-supplier_kode" class="error-text form-text text-danger"></small>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label>Nama</label>
-                    <input value="" type="text" name="supplier_nama" id="supplier_nama" class="form-control" required>
-                    <small id="error-supplier_nama" class="error-text form-text text-danger"></small>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Nama Supplier</label>
+                    <div class="col-sm-9">
+                        <input type="text" name="supplier_nama" id="supplier_nama" class="form-control" required>
+                        <small id="error-supplier_nama" class="error-text form-text text-danger"></small>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label>Alamat</label>
-                    <input value="" type="text" name="supplier_alamat" id="supplier_alamat" class="form-control" required>
-                    <small id="error-supplier_alamat" class="error-text form-text text-danger"></small>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Alamat</label>
+                    <div class="col-sm-9">
+                        <textarea name="supplier_alamat" id="supplier_alamat" class="form-control" required rows="3"></textarea>
+                        <small id="error-supplier_alamat" class="error-text form-text text-danger"></small>
+                    </div>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" data-dismiss="modal" class="btn btn-warning">Batal</button>
-                <button type="submit" class="btn btn-primary">Simpan</button>
+            <div class="modal-footer bg-light">
+                <button type="button" class="btn btn-warning" data-dismiss="modal">
+                    <i class="fas fa-times mr-1"></i> Batal
+                </button>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save mr-1"></i> Simpan
+                </button>
             </div>
         </div>
     </div>

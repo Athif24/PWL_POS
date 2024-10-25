@@ -1,54 +1,66 @@
 @empty($supplier)
-    <div id="modal-master" class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Kesalahan</h5>
-                <button type="button" class="close" data-dismiss="modal" arialabel="Close"><span
-                        aria-hidden="true">&times;</span></button>
+<div id="modal-master" class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+        <div class="modal-header bg-danger">
+            <h5 class="modal-title text-white" id="exampleModalLabel">
+                <i class="fas fa-exclamation-triangle mr-2"></i>Kesalahan
+            </h5>
+            <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="alert alert-danger border-0 shadow-sm">
+                <h5><i class="icon fas fa-ban"></i> Kesalahan!</h5>
+                <p class="mb-0">Data yang anda cari tidak ditemukan</p>
             </div>
-            <div class="modal-body">
-                <div class="alert alert-danger">
-                    <h5><i class="icon fas fa-ban"></i> Kesalahan!!!</h5>
-                    Data yang anda cari tidak ditemukan
-                </div>
-                <a href="{{ url('/supplier') }}" class="btn btn-warning">Kembali</a>
-            </div>
+            <a href="{{ url('/supplier') }}" class="btn btn-warning">
+                <i class="fas fa-arrow-left mr-2"></i>Kembali
+            </a>
         </div>
     </div>
+</div>
 @else
     <form action="{{ url('/supplier/' .$supplier->supplier_id. '/update_ajax') }}" method="POST" id="form-edit">
         @csrf
         @method('PUT')
         <div id="modal-master" class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit Data Supplier</h5>
-                    <button type="button" class="close" data-dismiss="modal" arialabel="Close"><span
-                            aria-hidden="true">&times;</span></button>
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header bg-warning">
+                    <h5 class="modal-title text-white" id="exampleModalLabel">
+                        <i class="fas fa-edit mr-2"></i>Edit Data Supplier
+                    </h5>
+                    <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label>Kode</label>
+                        <label><i class="fas fa-barcode mr-2"></i>Kode Supplier</label>
                         <input value="{{ $supplier->supplier_kode }}" type="text" name="supplier_kode" id="supplier_kode"
-                            class="form-control" required>
-                        <small id="error-supplier_kode" class="error-text form-text textdanger"></small>
+                            class="form-control" required placeholder="Masukkan kode supplier">
+                        <small id="error-supplier_kode" class="error-text form-text text-danger"></small>
                     </div>
                     <div class="form-group">
-                        <label>Nama</label>
-                        <input value="{{ $supplier->supplier_nama }}" type="text" name="supplier_nama" id="supplier_nama" class="form-control"
-                            required>
+                        <label><i class="fas fa-building mr-2"></i>Nama Supplier</label>
+                        <input value="{{ $supplier->supplier_nama }}" type="text" name="supplier_nama" id="supplier_nama" 
+                            class="form-control" required placeholder="Masukkan nama supplier">
                         <small id="error-supplier_nama" class="error-text form-text text-danger"></small>
                     </div>
                     <div class="form-group">
-                        <label>Alamat</label>
-                        <input value="{{ $supplier->supplier_alamat }}" type="text" name="supplier_alamat" id="supplier_alamat" class="form-control"
-                            required>
+                        <label><i class="fas fa-map-marker-alt mr-2"></i>Alamat</label>
+                        <input value="{{ $supplier->supplier_alamat }}" type="text" name="supplier_alamat" id="supplier_alamat" 
+                            class="form-control" required placeholder="Masukkan alamat supplier">
                         <small id="error-supplier_alamat" class="error-text form-text text-danger"></small>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" data-dismiss="modal" class="btn btn-warning">Batal</button>
-                    <button type="submit" class="btn btn-primary">Simpan</button>
+                <div class="modal-footer bg-light">
+                    <button type="button" class="btn btn-warning" data-dismiss="modal">
+                        <i class="fas fa-times mr-2"></i> Batal
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save mr-2"></i> Simpan
+                    </button>
                 </div>
             </div>
         </div>
