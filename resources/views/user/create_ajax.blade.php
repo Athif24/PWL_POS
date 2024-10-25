@@ -1,16 +1,19 @@
 <form action="{{ url('/user/ajax') }}" method="POST" id="form-tambah">
     @csrf
     <div id="modal-master" class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Tambah Data User</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                        aria-hidden="true">&times;</span></button>
+        <div class="modal-content border-0 shadow-lg">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="exampleModalLabel">
+                    <i class="fas fa-user-plus mr-2"></i>Tambah Data User
+                </h5>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body p-4">
                 <div class="form-group">
-                    <label>Level Pengguna</label>
-                    <select name="level_id" id="level_id" class="form-control" required>
+                    <label><i class="fas fa-level-up-alt mr-1"></i>Level Pengguna</label>
+                    <select name="level_id" id="level_id" class="form-control shadow-sm" required>
                         <option value="">- Pilih Level -</option>
                         @foreach ($level as $l)
                             <option value="{{ $l->level_id }}">{{ $l->level_nama }}</option>
@@ -19,24 +22,28 @@
                     <small id="error-level_id" class="error-text form-text text-danger"></small>
                 </div>
                 <div class="form-group">
-                    <label>Username</label>
-                    <input value="" type="text" name="username" id="username" class="form-control" required>
+                    <label><i class="fas fa-user mr-1"></i>Username</label>
+                    <input type="text" name="username" id="username" class="form-control shadow-sm" required>
                     <small id="error-username" class="error-text form-text text-danger"></small>
                 </div>
                 <div class="form-group">
-                    <label>Nama</label>
-                    <input value="" type="text" name="nama" id="nama" class="form-control" required>
+                    <label><i class="fas fa-id-card mr-1"></i>Nama</label>
+                    <input type="text" name="nama" id="nama" class="form-control shadow-sm" required>
                     <small id="error-nama" class="error-text form-text text-danger"></small>
                 </div>
                 <div class="form-group">
-                    <label>Password</label>
-                    <input value="" type="password" name="password" id="password" class="form-control" required>
+                    <label><i class="fas fa-lock mr-1"></i>Password</label>
+                    <input type="password" name="password" id="password" class="form-control shadow-sm" required>
                     <small id="error-password" class="error-text form-text text-danger"></small>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" data-dismiss="modal" class="btn btn-warning">Batal</button>
-                <button type="submit" class="btn btn-primary">Simpan</button>
+            <div class="modal-footer bg-light">
+                <button type="button" data-dismiss="modal" class="btn btn-warning">
+                    <i class="fas fa-times mr-1"></i> Batal
+                </button>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save mr-1"></i> Simpan
+                </button>
             </div>
         </div>
     </div>
