@@ -54,11 +54,9 @@
                     <!-- Kolom Kanan -->
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label class="font-weight-bold">
-                                <i class="fas fa-calendar mr-1"></i>Tanggal
-                            </label>
-                            <input type="text" name="stok_tanggal" id="stok_tanggal" class="form-control datepicker"
-                                required>
+                            <label class="font-weight-bold">Tanggal</label>
+                            <input type="date" name="stok_tanggal" id="stok_tanggal"
+                                class="form-control form-control-sm">
                             <small id="error-stok_tanggal" class="error-text form-text text-danger"></small>
                         </div>
                         <div class="form-group">

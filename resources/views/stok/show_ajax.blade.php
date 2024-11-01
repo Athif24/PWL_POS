@@ -55,7 +55,7 @@
                             </tr>
                             <tr>
                                 <th class="bg-light text-right align-middle">Tanggal</th>
-                                <td>{{ $stok->stok_tanggal }}</td>
+                                <td>{{ date('d/m/Y', strtotime($stok->stok_tanggal)) }}</td>
                             </tr>
                             <tr>
                                 <th class="bg-light text-right align-middle">Jumlah</th>

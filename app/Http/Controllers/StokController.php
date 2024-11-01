@@ -42,6 +42,10 @@ class StokController extends Controller
             $stok->where('barang_id', $barang_id);
         }
 
+        if ($request->filter_date) {
+            $stok->whereDate('stok_tanggal', $request->filter_date);
+        }
+
         return DataTables::of($stok)->addIndexColumn() // menambahkan kolom index / no urut (default nama kolom:DT_RowIndex)
             ->addColumn('aksi', function ($stok) { // menambahkan kolom aksi
                 $btn = '<button onclick="modalAction(\'' . url('/stok/' . $stok->stok_id .
