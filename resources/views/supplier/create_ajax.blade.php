@@ -37,7 +37,7 @@
                 <button type="button" class="btn btn-warning" data-dismiss="modal">
                     <i class="fas fa-times mr-1"></i> Batal
                 </button>
-                <button type="submit" class="btn btn-primary">
+                <button type="submit" class="btn btn-primary" id="btn-simpan">
                     <i class="fas fa-save mr-1"></i> Simpan
                 </button>
             </div>

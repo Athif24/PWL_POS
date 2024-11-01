@@ -527,12 +527,8 @@ class TransaksiController extends Controller
         ]);
 
         // Configure PDF
-        $pdf->setPaper('a4', 'portrait');
-        $pdf->setOption("isRemoteEnabled", true);
-        $pdf->setOption('margin-top', '10mm');
-        $pdf->setOption('margin-right', '15mm');
-        $pdf->setOption('margin-bottom', '10mm');
-        $pdf->setOption('margin-left', '15mm');
+        $pdf->setPaper('a4', 'landscape'); // Set ukuran kertas dan orientasi
+        $pdf->setOption("isRemoteEnabled", true); // Set true jika ada gambar dari URL
         $pdf->render();
 
         // Stream PDF to browser

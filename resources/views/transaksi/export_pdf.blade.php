@@ -1,178 +1,147 @@
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <style>
-            body {
-                font-family: "Times New Roman", Times, serif;
-                margin: 6px 20px 5px 20px;
-                line-height: 15px;
-            }
-    
-            table {
-                width: 100%;
-                border-collapse: collapse;
-                table-layout: fixed;
-            }
-    
-            td, th {
-                padding: 4px 3px;
-                text-align: center;
-                border: 1px solid black;
-                vertical-align: middle;
-            }
-    
-            thead {
-                display: table-header-group;
-            }
-            
-            tbody {
-                display: table-row-group;
-            }
-            
-            tr {
-                page-break-inside: avoid;
-            }
-            
-            tfoot {
-                display: table-footer-group;
-            }
-    
-            .d-block {
-                display: block;
-            }
-    
-            img.image {
-                width: auto;
-                height: 80px;
-                max-width: 150px;
-                max-height: 150px;
-            }
-    
-            .text-right { text-align: right; }
-            .text-center { text-align: center; }
-            .text-left { text-align: left; }
-    
-            .font-10 { font-size: 10pt; }
-            .font-11 { font-size: 11pt; }
-            .font-12 { font-size: 12pt; }
-            .font-13 { font-size: 13pt; }
-    
-            .border-bottom-header {
-                border-bottom: 1px solid;
-                margin-bottom: 20px;
-            }
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <style>
+        body {
+            font-family: "Times New Roman", Times, serif;
+            margin: 6px 20px 5px 20px;
+            line-height: 15px;
+        }
 
-            /* Pengaturan lebar kolom */
-            .col-no { width: 5%; }
-            .col-date { width: 12%; }
-            .col-code { width: 10%; }
-            .col-buyer { width: 12%; }
-            .col-id { width: 8%; }
-            .col-item { width: 20%; }
-            .col-qty { width: 8%; }
-            .col-price { width: 12%; }
-            .col-total { width: 13%; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
 
-            /* Style untuk group transaksi */
-            .transaction-group {
-                border-top: 2px solid black;
-            }
+        .border-bottom-header {
+            border-bottom: 1px solid;
+            margin-bottom: 20px;
+            width: 85%;
+            margin-left: auto;
+            margin-right: auto;
+        }
 
-            .transaction-detail td {
-                border-top: 1px solid #ddd;
-            }
+        .border-bottom-header span {
+            text-align: center;
+            display: block;
+            margin: 0 auto;
+        }
 
-            /* Mengatur ulang border untuk sel yang digabung */
-            .no-top-border { 
-                border-top: none !important; 
-            }
-            .no-bottom-border { 
-                border-bottom: none !important; 
-            }
+        .image {
+            width: auto;
+            height: 80px;
+            max-width: 150px;
+            max-height: 150px;
+            display: block;
+            margin: 0 auto;
+        }
 
-            @page {
-                margin: 20mm;
-                size: A4;
-            }
+        h3.text-center {
+            text-align: center;
+            width: 85%;
+            margin: 20px auto;
+            font-size: 12pt;
+        }
 
-            /* Memastikan konten tidak terpotong */
-            .page-break-inside-avoid {
-                page-break-inside: avoid !important;
-            }
-        </style>
-    </head>
-    <body>
-        <table class="border-bottom-header">
+        td, th {
+            padding: 4px 3px;
+            font-size: 10pt;
+        }
+
+        .font-10 {
+            font-size: 10pt;
+        }
+
+        .font-11 {
+            font-size: 11pt;
+        }
+
+        .font-13 {
+            font-size: 13pt;
+        }
+
+        .border-all,
+        .border-all th,
+        .border-all td {
+            border: 1px solid black;
+        }
+
+        .total-row td {
+            font-weight: bold;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+    </style>
+</head>
+
+<body>
+    <table class="border-bottom-header">
+        <tr>
+            <td width="15%" class="text-center"><img src="{{ asset('polinema-bw.png') }}" class="image"></td>
+            <td width="85%">
+                <span class="text-center d-block font-11">KEMENTERIAN PENDIDIKAN, KEBUDAYAAN, RISET, DAN TEKNOLOGI</span>
+                <span class="text-center d-block font-13">POLITEKNIK NEGERI MALANG</span>
+                <span class="text-center d-block font-10">Jl. Soekarno-Hatta No. 9 Malang 65141</span>
+                <span class="text-center d-block font-10">Telepon (0341) 404424 Pes. 101-105, (0341-404420), Fax. (0341) 404420</span>
+                <span class="text-center d-block font-10">Laman: www.polinema.ac.id</span>
+            </td>
+        </tr>
+    </table>
+
+    <h3 class="text-center">LAPORAN DATA TRANSAKSI</h3>
+
+    <table class="border-all">
+        <thead>
             <tr>
-                <td width="15%" class="text-center" style="border: none;">
-                    <img src="{{ asset('polinema-bw.png') }}" class="image">
-                </td>
-                <td width="85%" style="border: none;">
-                    <span class="text-center d-block font-11">KEMENTERIAN PENDIDIKAN, KEBUDAYAAN, RISET, DAN TEKNOLOGI</span>
-                    <span class="text-center d-block font-13">POLITEKNIK NEGERI MALANG</span>
-                    <span class="text-center d-block font-10">Jl. Soekarno-Hatta No. 9 Malang 65141</span>
-                    <span class="text-center d-block font-10">Telepon (0341) 404424 Pes. 101-105, 0341-404420, Fax. (0341) 404420</span>
-                    <span class="text-center d-block font-10">Laman: www.polinema.ac.id</span>
-                </td>
+                <th>No</th>
+                <th>Tanggal</th>
+                <th>Kode Transaksi</th>
+                <th>Pembeli</th>
+                <th>Barang</th>
+                <th>Jumlah</th>
+                <th>Harga</th>
+                <th>Total</th>
             </tr>
-        </table>
-
-        <h3 class="text-center">LAPORAN DATA TRANSAKSI</h3>
-
-        <table>
-            <thead>
-                <tr>
-                    <th class="col-no">No</th>
-                    <th class="col-date">Tanggal</th>
-                    <th class="col-code">Kode Transaksi</th>
-                    <th class="col-buyer">Pembeli</th>
-                    <th class="col-item">Barang</th>
-                    <th class="col-qty">Jumlah</th>
-                    <th class="col-price">Harga</th>
-                    <th class="col-total">Total</th>
-                </tr>
-            </thead>
-            <tbody>
-                @php
-                    $currentNo = 1;
-                    $currentTransactionId = null;
-                @endphp
-
-                @foreach ($transaksi as $t)
-                    @php
-                        $isNewTransaction = $currentTransactionId !== $t->penjualan_kode;
-                        $detailCount = count($t->penjualan_detail);
-                    @endphp
-
-                    @foreach ($t->penjualan_detail as $index => $detail)
-                        <tr class="page-break-inside-avoid {{ $isNewTransaction && $index === 0 ? 'transaction-group' : 'transaction-detail' }}">
-                            @if ($index === 0)
-                                <td rowspan="{{ $detailCount }}" class="text-center">{{ $currentNo }}</td>
-                                <td rowspan="{{ $detailCount }}" class="text-center">{{ date('Y-m-d H:i:s', strtotime($t->penjualan_tanggal)) }}</td>
-                                <td rowspan="{{ $detailCount }}" class="text-center">{{ $t->penjualan_kode }}</td>
-                                <td rowspan="{{ $detailCount }}" class="text-center">{{ $t->pembeli }}</td>
-                            @endif
-                            <td class="text-left">{{ $detail->barang->barang_nama }}</td>
-                            <td class="text-center">{{ $detail->jumlah }}</td>
-                            <td class="text-right">{{ number_format($detail->harga, 0, ',', '.') }}</td>
-                            <td class="text-right">{{ number_format($detail->harga * $detail->jumlah, 0, ',', '.') }}</td>
-                        </tr>
-                    @endforeach
-
-                    @php
-                        if ($isNewTransaction) {
-                            $currentNo++;
-                            $currentTransactionId = $t->penjualan_kode;
-                        }
-                    @endphp
+        </thead>
+        <tbody>
+            @php
+                $currentTransactionId = null;
+                $rowCount = [];
+                
+                // First pass: count rows for each transaction
+                foreach ($transaksi as $t) {
+                    $rowCount[$t->penjualan_kode] = count($t->penjualan_detail);
+                }
+            @endphp
+            
+            @foreach ($transaksi as $t)
+                @foreach ($t->penjualan_detail as $index => $detail)
+                    <tr>
+                        @if ($index === 0)
+                            <td class="text-center" rowspan="{{ $rowCount[$t->penjualan_kode] }}">{{ $loop->parent->iteration }}</td>
+                            <td rowspan="{{ $rowCount[$t->penjualan_kode] }}">{{ date('Y-m-d', strtotime($t->penjualan_tanggal)) }}</td>
+                            <td rowspan="{{ $rowCount[$t->penjualan_kode] }}">{{ $t->penjualan_kode }}</td>
+                            <td rowspan="{{ $rowCount[$t->penjualan_kode] }}">{{ $t->pembeli }}</td>
+                        @endif
+                        <td>{{ $detail->barang->barang_nama }}</td>
+                        <td class="text-center">{{ $detail->jumlah }}</td>
+                        <td class="text-right">{{ number_format($detail->harga, 0, ',', '.') }}</td>
+                        <td class="text-right">{{ number_format($detail->harga * $detail->jumlah, 0, ',', '.') }}</td>
+                    </tr>
                 @endforeach
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td colspan="8" class="text-right"><strong>Total Penjualan:</strong></td>
-                    <td class="text-right"><strong>{{ number_format($total, 0, ',', '.') }}</strong></td>
-                </tr>
-            </tfoot>
-        </table>
-    </body>
+            @endforeach
+            <tr class="total-row">
+                <td colspan="7" class="text-right">Total Penjualan:</td>
+                <td class="text-right">{{ number_format($total, 0, ',', '.') }}</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
 </html>
