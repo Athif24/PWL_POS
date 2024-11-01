@@ -97,7 +97,7 @@
                     <th class="text-center">No</th>
                     <th>Kode User</th>
                     <th>Nama User</th>
-                    <th>Password User</th>
+                    <th>Level Pengguna</th>
                 </tr>
             </thead>
             <tbody>
@@ -106,7 +106,6 @@
                         <td class="text-center">{{ $loop->iteration }}</td>
                         <td>{{ $u->username }}</td>
                         <td>{{ $u->nama }}</td>
-                        <td>{{ $u->password}}</td>
                         <td>{{ $u->level->level_nama }}</td>
                     </tr>
                 @endforeach
