@@ -73,7 +73,7 @@
                                 title: 'Berhasil',
                                 text: response.message
                             });
-                            tableStok.ajax.reload(); // reload datatable
+                            dataStok.ajax.reload(); // reload datatable
                         } else { // jika error
                             $('.error-text').text('');
                             $.each(response.msgField, function(prefix, val) {
