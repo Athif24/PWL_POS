@@ -20,7 +20,8 @@ class BarangController extends Controller
             'barang_kode' => $request->barang_kode,
             'barang_nama' => $request->barang_nama,
             'harga_beli' => $request->harga_beli,
-            'harga_jual' => $request->harga_jual
+            'harga_jual' => $request->harga_jual,
+            'image' => $request->image->hashName()
         ]);
         return response()->json($barang, 201);
     }
@@ -37,7 +38,8 @@ class BarangController extends Controller
             'barang_kode' => $request->barang_kode ?? $barang->barang_kode,
             'barang_nama' => $request->barang_nama ?? $barang->barang_nama,
             'harga_beli' => $request->harga_beli ?? $barang->harga_beli,
-            'harga_jual' => $request->harga_jual ?? $barang->harga_jual
+            'harga_jual' => $request->harga_jual ?? $barang->harga_jual,
+            'image' => $request->image->hashName() ?? $barang->image
         ]);
         return response()->json($barang);
     }
