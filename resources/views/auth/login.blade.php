@@ -25,8 +25,10 @@
 <body class="hold-transition login-page">
     <div class="login-box">
         <!-- /.login-logo -->
-        <div class="card card-outline card-primary">
-            <div class="card-header text-center"><a href="{{ url('/') }}" class="h1"><b>PWL</b><b> POS</b></a></div>
+        <div class="card">
+            <div class="card-header text-center bg-primary text-white">
+                <a href="{{ url('/') }}" class="h1 text-white"><b>PWL</b><b> POS</b></a>
+            </div>
             <div class="card-body">
                 <p class="login-box-msg">Masuk untuk memulai sesi Anda</p>
                 <form action="{{ url('login') }}" method="POST" id="form-login">

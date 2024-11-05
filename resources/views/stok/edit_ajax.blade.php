@@ -82,7 +82,7 @@
                         <label class="font-weight-bold">
                             <i class="fas fa-calendar mr-1"></i>Tanggal
                         </label>
-                        <input value="{{ $stok->stok_tanggal }}" type="text" name="stok_tanggal" 
+                        <input value="{{ $stok->stok_tanggal }}" type="date" name="stok_tanggal" 
                             id="stok_tanggal" class="form-control datepicker" required>
                         <small id="error-stok_tanggal" class="error-text form-text text-danger"></small>
                     </div>
